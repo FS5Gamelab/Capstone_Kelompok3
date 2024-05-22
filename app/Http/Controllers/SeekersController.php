@@ -61,5 +61,6 @@ class SeekersController extends Controller
     public function destroy(Seekers $seekers)
     {
         //
+    // 
     }
 }
