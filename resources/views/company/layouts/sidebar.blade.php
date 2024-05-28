@@ -23,10 +23,18 @@
                 data-accordion="false">
                 
                 <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link">
+                    <a href="/dashboard" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/company/jobs" class="nav-link">
+                        <i class="nav-icon fa fa-address-book"></i>
+                        <p>
+                            Jobs
                         </p>
                     </a>
                 </li>

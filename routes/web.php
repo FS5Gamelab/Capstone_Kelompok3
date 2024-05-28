@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JobsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +22,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth'])->name('dashboard');
-Route::get('post',[DashboardController::class,'post'])->middleware(['auth','admin']);
+
+Route::middleware(['auth', 'company'])->group(function () {
+    Route::get('post', [DashboardController::class, 'post']);
+    Route::resource('/company/profile', CompaniesController::class);
+    Route::resource('/company/jobs', JobsController::class);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

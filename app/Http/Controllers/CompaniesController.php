@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Companies;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class CompaniesController extends Controller
 {
@@ -12,7 +14,12 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::findOrFail(Auth::user()->id);
+        $company = $user->companies;
+        return view('company.partials.profile', [
+            'user'=> $user,
+            'company' => $company
+        ]);
     }
 
     /**

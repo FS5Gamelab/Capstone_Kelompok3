@@ -11,7 +11,7 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item my-auto">
-                Selamat Datang Muchammad Yusril Ibnu
+                Selamat Datang {{ Auth::user()->name }}
              </li>
             
 
@@ -22,7 +22,7 @@
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
+                    <a href="/company/profile" class="dropdown-item">
                         <i class="fa fa-sign-out" aria-hidden="true"></i> Profiles
                     </a>
                     <div class="dropdown-divider"></div>

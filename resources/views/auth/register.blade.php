@@ -44,7 +44,7 @@
             <div class="col-md-6">
                 <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required>
                     <option value="user">{{ __('Pencari Kerja') }}</option>
-                    <option value="admin">{{ __('Perusahaan') }}</option>
+                    <option value="company">{{ __('Perusahaan') }}</option>
                 </select>
 
                 @error('role')

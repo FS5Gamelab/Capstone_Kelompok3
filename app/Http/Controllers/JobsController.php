@@ -12,7 +12,7 @@ class JobsController extends Controller
      */
     public function index()
     {
-        //
+      return view('company.partials.jobs');
     }
 
     /**

@@ -12,8 +12,8 @@ class DashboardController extends Controller
     {
         if (Auth::id()) {
             $role = Auth()->user()->role;
-            if ($role == 'admin') {
-                return view('admin.main');
+            if ($role == 'company') {
+                return view('company.partials.dashboard');
             } else if ($role == 'user') {
                 return view('dashboard');
             } else {

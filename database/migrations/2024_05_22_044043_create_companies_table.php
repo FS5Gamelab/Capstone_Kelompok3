@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('companyName');
-            $table->string('companyDescription');
-            $table->string('companyAddress');
-            $table->string('companyPhone');
+            $table->string('companyName')->nullable();;
+            $table->string('companyDescription')->nullable();;
+            $table->string('companyAddress')->nullable();;
+            $table->string('companyPhone')->nullable();;
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
