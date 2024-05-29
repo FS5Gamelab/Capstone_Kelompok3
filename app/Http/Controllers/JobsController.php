@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Jobs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class JobsController extends Controller
 {
@@ -12,7 +14,9 @@ class JobsController extends Controller
      */
     public function index()
     {
-      return view('company.partials.jobs');
+        return view('company.partials.jobs.index', [
+            'jobs' => Jobs::all()
+        ]);
     }
 
     /**
@@ -20,7 +24,9 @@ class JobsController extends Controller
      */
     public function create()
     {
-        //
+        return view('company.partials.jobs.create', [
+            "jobs" => Jobs::all()
+        ]);
     }
 
     /**
@@ -28,38 +34,71 @@ class JobsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'job_title'     => 'required',
+            'job_description'   => 'required',
+            'job_require'   => 'required',
+            'job_location'   => 'required',
+            'job_type'   => 'required',
+            'job_salary'   => 'required|numeric',
+        ]);
+
+        Jobs::create([
+            'company_id'     => 1,
+            'jobTitle'     => $request->job_title,
+            'jobDescription'   => $request->job_description,
+            'jobRequire'     => $request->job_require,
+            'jobLocation'     => $request->job_location,
+            'jobType'     => $request->job_type,
+            'salary'     => $request->job_salary,
+            'postedDate'     => now()->format('Y-m-d'),
+        ]);
+        return redirect('/company/jobs')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Jobs $jobs)
     {
-        //
+        $post = Jobs::findOrFail($jobs);
+
+        //render view with post
+        return view('company.partials.jobs.show', compact('post'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Jobs $jobs)
+    public function edit($id)
     {
-        //
+
+        return view('company.partials.jobs.edit', [
+            'jobs' => Jobs::findOrFail($id)
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Jobs $jobs)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'job_title'     => 'required',
+            'job_description'   => 'required',
+            'job_require'   => 'required',
+            'job_location'   => 'required',
+            'job_type'   => 'required',
+            'job_salary'   => 'required|numeric',
+        ]);
+        $job = Jobs::findOrFail($id);
+        $job->update([
+                'jobTitle'     => $request->job_title,
+            'jobDescription'   => $request->job_description,
+            'jobRequire'     => $request->job_require,
+            'jobLocation'     => $request->job_location,
+            'jobType'     => $request->job_type,
+            'salary'     => $request->job_salary,
+            'postedDate'     => now()->format('Y-m-d'),
+        ]);
+        return redirect('/company/jobs')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Jobs $jobs)
+    public function destroy($id)
     {
-        //
+        $post = Jobs::findOrFail($id);
+        $post->delete();
+        return redirect('/company/jobs')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }
