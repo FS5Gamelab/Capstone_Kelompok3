@@ -129,7 +129,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="{{ asset('images/it.jpg') }}" class="card-img-top" alt="Teknologi Informasi">
+                        <img src="" class="card-img-top" alt="Teknologi Informasi">
                         <div class="card-body text-center">
                             <i class="fas fa-laptop-code fa-3x mb-3"></i>
                             <h4 class="card-title">Teknologi Informasi</h4>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="{{ asset('images/health.jpg') }}" class="card-img-top" alt="Kesehatan">
+                        <img src="" class="card-img-top" alt="Kesehatan">
                         <div class="card-body text-center">
                             <i class="fas fa-stethoscope fa-3x mb-3"></i>
                             <h4 class="card-title">Kesehatan</h4>
@@ -147,7 +147,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="{{ asset('images/finance.jpg') }}" class="card-img-top" alt="Keuangan">
+                        <img src="" class="card-img-top" alt="Keuangan">
                         <div class="card-body text-center">
                             <i class="fas fa-chart-line fa-3x mb-3"></i>
                             <h4 class="card-title">Keuangan</h4>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="{{ asset('images/manufacturing.jpg') }}" class="card-img-top" alt="Manufaktur">
+                        <img src="" class="card-img-top" alt="Manufaktur">
                         <div class="card-body text-center">
                             <i class="fas fa-building fa-3x mb-3"></i>
                             <h4 class="card-title">Manufaktur</h4>
@@ -179,3 +179,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
