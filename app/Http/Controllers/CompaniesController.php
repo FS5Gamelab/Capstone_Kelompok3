@@ -18,48 +18,38 @@ class CompaniesController extends Controller
         $company = $user->companies;
         return view('company.partials.profile', [
             'user'=> $user,
-            'company' => $company
+            'company' => $company,
+          
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Companies $companies)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Companies $companies)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Companies $companies)
+   public function show($id){
+
+   }
+    public function update(Request $request,)
     {
-        //
+        $user = User::findOrFail(Auth::user()->id);
+        $id = $user->companies->id;
+        $this->validate($request, [
+            'nama_perusahaan'     => 'required',
+            // 'detail_perusahaan'   => 'required',
+            // 'alamat_perusahaan'   => 'required',
+            // 'no_hp'   => 'required',
+        ]);
+        $job = Companies::findOrFail($id);
+        $job->update([
+            'companyName'     => $request->nama_perusahaan,
+            // 'companyDescription'   => $request->detail_perusahaan,
+            // 'companyAddress'     => $request->alamat_perusahaan,
+            // 'companyPhone'     => $request->no_hp,
+        ]);
+
+        return redirect('/company-profile')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     /**

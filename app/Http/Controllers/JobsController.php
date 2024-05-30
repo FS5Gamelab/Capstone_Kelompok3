@@ -14,8 +14,10 @@ class JobsController extends Controller
      */
     public function index()
     {
+        $user = User::findOrFail(Auth::user()->id);
         return view('company.partials.jobs.index', [
-            'jobs' => Jobs::all()
+            'jobs' => Jobs::where('company_id', $user->companies->id)->get()
+            
         ]);
     }
 
@@ -42,9 +44,9 @@ class JobsController extends Controller
             'job_type'   => 'required',
             'job_salary'   => 'required|numeric',
         ]);
-
+        $user = User::findOrFail(Auth::user()->id);
         Jobs::create([
-            'company_id'     => 1,
+            'company_id'     => $user->companies->id,
             'jobTitle'     => $request->job_title,
             'jobDescription'   => $request->job_description,
             'jobRequire'     => $request->job_require,
@@ -84,7 +86,7 @@ class JobsController extends Controller
         ]);
         $job = Jobs::findOrFail($id);
         $job->update([
-                'jobTitle'     => $request->job_title,
+            'jobTitle'     => $request->job_title,
             'jobDescription'   => $request->job_description,
             'jobRequire'     => $request->job_require,
             'jobLocation'     => $request->job_location,
