@@ -15,7 +15,7 @@ class DashboardController extends Controller
             if ($role == 'company') {
                 return view('company.partials.dashboard');
             } else if ($role == 'user') {
-                return view('dashboard');
+                return view('seeker.layout.master');
             } else {
                 return redirect()->back();
             }

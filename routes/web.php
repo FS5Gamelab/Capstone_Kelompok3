@@ -4,6 +4,7 @@ use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SeekersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,3 +38,7 @@ Route::middleware('auth')->group(function () {
 
 
 require __DIR__.'/auth.php';
+
+// route dashboard user
+Route::get('/dashboard/seeker', [DashboardController::class,'index'])->middleware(['auth'])->name('dashboard');
+Route::get('post',[DashboardController::class,'post'])->middleware(['auth','user']);
