@@ -4,11 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>JobFinder</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <title>JobFinder - Register</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -19,34 +15,52 @@
     <!-- Custom CSS -->
     <style>
         body {
-            font-family: 'Figtree', sans-serif;
+            background: url('https://source.unsplash.com/1600x900/?job') no-repeat center center;
+            background-size: cover;
+            color: white;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 5% auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease; /* Animasi muncul */
+        }
+        .form-control {
+            background-color: #333;
+            color: #fff;
+            border: none;
+        }
+        .form-control:focus {
+            background-color: #444;
+            color: #fff;
+            border: none;
+        }
+        .form-check-label {
+            color: #fff;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .text-decoration-none {
+            color: #007bff;
+        }
+        .text-decoration-none:hover {
+            color: #0056b3;
         }
         .navbar-brand i {
             margin-right: 0.5rem;
         }
-        .header {
-            background-color: #007bff;
-            color: white;
-        }
-        .header .btn {
-            margin-top: 1rem;
-        }
-        .icon-section i {
-            color: #007bff;
-        }
-        .card-title {
-            font-size: 1.25rem;
-            margin-top: 0.5rem;
-        }
-        footer {
-            background-color: #f8f9fa;
-            padding: 1rem 0;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
-
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <i class="fas fa-briefcase"></i> JobFinder
@@ -68,11 +82,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="fas fa-user"></i> Profil
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
                             <i class="fas fa-envelope"></i> Hubungi Kami
                         </a>
                     </li>
@@ -80,12 +89,10 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-sign-in-alt"></i> Masuk / Daftar
                         </a>
-          
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{ route('login') }}">Masuk</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ route('register') }}">Daftar</a></li>
-                           
                         </ul>
                     </li>
                 </ul>
@@ -93,85 +100,58 @@
         </div>
     </nav>
 
-    <header class="header text-center py-5">
-        <div class="container">
-            <h1>Selamat Datang di JobFinder</h1>
-            <p class="lead">Temukan pekerjaan impian Anda dengan mudah</p>
-            <a href="#" class="btn btn-light btn-lg"><i class="fas fa-search"></i> Mulai Mencari</a>
-        </div>
-    </header>
 
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 text-center icon-section">
-                    <i class="fas fa-briefcase fa-3x mb-3"></i>
-                    <h3>Daftar Pekerjaan yang Luas</h3>
-                    <p>Telusuri ribuan daftar pekerjaan dari berbagai industri.</p>
-                </div>
-                <div class="col-md-4 text-center icon-section">
-                    <i class="fas fa-users fa-3x mb-3"></i>
-                    <h3>Peluang Jaringan</h3>
-                    <p>Terhubung dengan profesional dan kembangkan jaringan Anda.</p>
-                </div>
-                <div class="col-md-4 text-center icon-section">
-                    <i class="fas fa-file-alt fa-3x mb-3"></i>
-                    <h3>Pengajuan Mudah</h3>
-                    <p>Ajukan lamaran pekerjaan dengan cepat dan mudah dengan proses yang sederhana.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="container">
+        <div class="form-container">
+            <!-- Form Register -->
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
 
-    <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-4">Kategori Pencarian Kerja yang Paling Dicari</h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="" class="card-img-top" alt="Teknologi Informasi">
-                        <div class="card-body text-center">
-                            <i class="fas fa-laptop-code fa-3x mb-3"></i>
-                            <h4 class="card-title">Teknologi Informasi</h4>
-                        </div>
-                    </div>
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus autocomplete="name">
                 </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="" class="card-img-top" alt="Kesehatan">
-                        <div class="card-body text-center">
-                            <i class="fas fa-stethoscope fa-3x mb-3"></i>
-                            <h4 class="card-title">Kesehatan</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="" class="card-img-top" alt="Keuangan">
-                        <div class="card-body text-center">
-                            <i class="fas fa-chart-line fa-3x mb-3"></i>
-                            <h4 class="card-title">Keuangan</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="" class="card-img-top" alt="Manufaktur">
-                        <div class="card-body text-center">
-                            <i class="fas fa-building fa-3x mb-3"></i>
-                            <h4 class="card-title">Manufaktur</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <footer class="bg-light py-4">
-        <div class="container text-center">
-            <p class="mb-0">© 2024 JobFinder. Hak cipta dilindungi undang-undang.</p>
+                <!-- Email Address -->
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" class="form-control" type="email" name="email" :value="old('email')" required autocomplete="username">
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password">
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+                    <label for="password_confirmation">Confirm Password</label>
+                    <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password">
+                </div>
+
+                <!-- Register As -->
+                <div class="form-group">
+                    <label for="role">Register As</label>
+                    <select id="role" class="form-control" name="role" required>
+                        <option value="user">Pencari Kerja</option>
+                        <option value="company">Perusahaan</option>
+                    </select>
+                </div>
+
+                <!-- Already registered? -->
+                <div class="form-group">
+                    <a class="text-decoration-none" href="{{ route('login') }}">Already registered?</a>
+                </div>
+
+                <!-- Register Button -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
         </div>
-    </footer>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -179,4 +159,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
