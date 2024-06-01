@@ -45,6 +45,6 @@ class User extends Authenticatable
 
     public function companies()
     {
-        return $this->hasOne(Companies::class, 'user_id');
+        return $this->hasOne(Companies::class);
     }
 }

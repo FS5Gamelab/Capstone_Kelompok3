@@ -25,8 +25,7 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth', 'company'])->group(function () {
-    Route::get('post', [DashboardController::class, 'post']);
-    Route::resource('/company-profile', CompaniesController::class);
+    Route::resource('/company-profile', CompaniesController::class)->except('destroy','edit');
     Route::resource('/company/jobs', JobsController::class);
 });
 

@@ -31,18 +31,18 @@ class CompaniesController extends Controller
    public function show($id){
 
    }
-    public function update(Request $request,)
+    public function update(Request $request)
     {
         $user = User::findOrFail(Auth::user()->id);
-        $id = $user->companies->id;
+        $company = $user->companies->id;
         $this->validate($request, [
             'nama_perusahaan'     => 'required',
             // 'detail_perusahaan'   => 'required',
             // 'alamat_perusahaan'   => 'required',
             // 'no_hp'   => 'required',
         ]);
-        $job = Companies::findOrFail($id);
-        $job->update([
+        $perusahaan = Companies::findOrFail($company);
+        $perusahaan->update([
             'companyName'     => $request->nama_perusahaan,
             // 'companyDescription'   => $request->detail_perusahaan,
             // 'companyAddress'     => $request->alamat_perusahaan,
@@ -52,11 +52,4 @@ class CompaniesController extends Controller
         return redirect('/company-profile')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Companies $companies)
-    {
-        //
-    }
 }

@@ -12,12 +12,12 @@ class JobsController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
     public function index()
     {
         $user = User::findOrFail(Auth::user()->id);
         return view('company.partials.jobs.index', [
             'jobs' => Jobs::where('company_id', $user->companies->id)->get()
-            
         ]);
     }
 
@@ -26,9 +26,7 @@ class JobsController extends Controller
      */
     public function create()
     {
-        return view('company.partials.jobs.create', [
-            "jobs" => Jobs::all()
-        ]);
+        return view('company.partials.jobs.create');
     }
 
     /**
@@ -58,12 +56,9 @@ class JobsController extends Controller
         return redirect('/company/jobs')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
-    public function show(Jobs $jobs)
+    public function show(Jobs $job)
     {
-        $post = Jobs::findOrFail($jobs);
-
-        //render view with post
-        return view('company.partials.jobs.show', compact('post'));
+        return view('company.partials.jobs.show', compact('job'));
     }
 
     public function edit($id)
@@ -83,6 +78,7 @@ class JobsController extends Controller
             'job_location'   => 'required',
             'job_type'   => 'required',
             'job_salary'   => 'required|numeric',
+            'job_status'   => 'required',
         ]);
         $job = Jobs::findOrFail($id);
         $job->update([
@@ -92,6 +88,7 @@ class JobsController extends Controller
             'jobLocation'     => $request->job_location,
             'jobType'     => $request->job_type,
             'salary'     => $request->job_salary,
+            'jobStatus'     => $request->job_status,
             'postedDate'     => now()->format('Y-m-d'),
         ]);
         return redirect('/company/jobs')->with(['success' => 'Data Berhasil Diubah!']);

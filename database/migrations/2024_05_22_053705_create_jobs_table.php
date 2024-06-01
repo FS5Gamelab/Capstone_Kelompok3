@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('jobLocation');
             $table->string('jobType');
             $table->string('salary');
+            $table->enum('jobStatus',['buka', 'tutup'])->default('buka');
             $table->date('postedDate');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();

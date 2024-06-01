@@ -42,7 +42,7 @@
                         <div class="form-group">
                             <label for="job_type">Jenis Pekerjaan</label>
                             {{-- <input type="text" value="{{ old('job_type', $jobs->jobType) }}" class="form-control @error('job_type') is-invalid @enderror" name="job_type" id="job_type"> --}}
-                            <label for="job_type">Jenis Pekerjaan</label>
+                         
                             <select name="job_type" id="job_type"  class="form-control">
                                 <option value="wfh" {{ old('job_type', $jobs->jobType) == 'wfh' ? 'selected' : '' }} >WFH</option>
                                 <option value="wfo" {{ old('job_type', $jobs->jobType) == 'wf0' ? 'selected' : '' }}>WFO</option>
@@ -60,9 +60,17 @@
                                 <small class="text-danger"> {{ $message }}</small>
                             @enderror
                         </div>
-
+                        <div class="form-group">
+                            <label for="job_status">Status Pekerjaan</label>
+                            <select name="job_status" id="job_status"  class="form-control">
+                                <option value="buka" {{ old('job_status', $jobs->jobType) == 'buka' ? 'selected' : '' }} >Buka</option>
+                                <option value="tutup" {{ old('job_status', $jobs->jobType) == 'tutup' ? 'selected' : '' }}>Tutup</option>
+                              </select>
+                            @error('job_status')
+                                <small class="text-danger"> {{ $message }}</small>
+                            @enderror
+                        </div>
                     </div>
-
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Edit</button>
                     </div>

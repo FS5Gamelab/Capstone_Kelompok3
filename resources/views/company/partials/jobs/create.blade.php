@@ -78,7 +78,4 @@
         </div>
     </div>
     <ul>
-        @foreach ($jobs as $job)
-            <li>{{ $job->company_id }}</li>
-        @endforeach
     @endsection
