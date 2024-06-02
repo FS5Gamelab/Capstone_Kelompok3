@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SeekersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +25,8 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth', 'company'])->group(function () {
-    Route::resource('/company-profile', CompaniesController::class)->except('destroy','edit');
+    Route::get('post', [DashboardController::class, 'post']);
+    Route::resource('/company/profile', CompaniesController::class);
     Route::resource('/company/jobs', JobsController::class);
 });
 
@@ -35,9 +36,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 require __DIR__.'/auth.php';
-
-// route dashboard user
-Route::get('/dashboard/seeker', [DashboardController::class,'index'])->middleware(['auth'])->name('dashboard');
-Route::get('post',[DashboardController::class,'post'])->middleware(['auth','user']);
