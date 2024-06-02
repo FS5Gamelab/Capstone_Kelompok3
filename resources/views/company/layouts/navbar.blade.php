@@ -23,13 +23,13 @@
                     
                     <div class="dropdown-divider"></div>
                     <a href="/company-profile" class="dropdown-item">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i> Profiles
+                        <i class="nav-icon fa fa-user" aria-hidden="true"></i> Profiles
                     </a>
                     <div class="dropdown-divider"></div>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="dropdown-item">
-                            <i class="fa fa-sign-out"></i>Log out
+                            <i class="fa fa-sign-out-alt"></i>Log out
                         </button>
                     </form>
                     

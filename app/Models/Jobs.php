@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Console\Application;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,11 +17,17 @@ class Jobs extends Model
         'jobLocation',
         'jobType',
         'salary',
+        'jobStatus',
         'postedDate'
     ];
 
 public function company(){
     return $this->belongsTo(Companies::class);
+}
+
+public function application(){
+
+    return $this->hasMany(Applications::class);
 }
 }
 

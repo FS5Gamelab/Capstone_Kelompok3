@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applications;
 use App\Models\Jobs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,9 +10,6 @@ use App\Models\User;
 
 class JobsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     
     public function index()
     {
@@ -21,17 +19,11 @@ class JobsController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('company.partials.jobs.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -58,7 +50,11 @@ class JobsController extends Controller
 
     public function show(Jobs $job)
     {
-        return view('company.partials.jobs.show', compact('job'));
+        $jobs = Jobs::where('company_id', 3)->get();
+        $applications = Applications::whereHas('job', function ($query) {
+            $query->where('company_id', 3);
+        })->get();
+        return view('company.partials.jobs.show', compact('job','applications'));
     }
 
     public function edit($id)

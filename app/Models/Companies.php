@@ -11,10 +11,10 @@ class Companies extends Model
 
     protected $fillable = [
         'user_id',
-        'CompanyName',
-        'CompanyDescription',
-        'CompanyAddress',
-        'CompanyPhone',
+        'companyName',
+        'companyDescription',
+        'companyAddress',
+        'companyPhone',
     ];
 
     public function jobs()

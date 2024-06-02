@@ -26,10 +26,10 @@
                                 <th>No</th>
                                 <th>Nama Pekerjaan</th>
                                 <th>Lokasi Pekerjaan</th>
-                                <th>Type Pekerjaan</th>
-                                <th>Status Pekerjaan</th>
+                                <th width="12%">Type Pekerjaan</th>
+                                <th width="12%">Status Pekerjaan</th>
                                 <th>Gaji</th>
-                                <th>Action</th>
+                                <th width="12%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,29 +38,45 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $job->jobTitle }}</td>
                                     <td>{{ $job->jobLocation }}</td>
-                                    <td>{{ $job->jobType }}</td>
                                     <td>
-                                        @if($job->jobStatus =='buka')
-                                        <div class="btn btn-success">
-                                            {{ $job->jobStatus }}
-                                        </div>
+
+                                        @if ($job->jobType == 'wfh')
+                                            <div class="btn btn-secondary rounded-pill">
+                                                {{ $job->jobType }}
+                                            </div>
+                                        @elseif($job->jobType == 'wfo')
+                                            <div class="btn btn-primary rounded-pill">
+                                                {{ $job->jobType }}
+                                            </div>
                                         @else
-                                        <div class="btn btn-danger">
-                                            {{ $job->jobStatus }}
-                                        </div>
+                                            <div class="btn btn-warning rounded-pill">
+                                                {{ $job->jobType }}
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($job->jobStatus == 'buka')
+                                            <div class="btn btn-success rounded-pill">
+                                                {{ $job->jobStatus }}
+                                            </div>
+                                        @else
+                                            <div class="btn btn-danger rounded-pill">
+                                                {{ $job->jobStatus }}
+                                            </div>
                                         @endif
                                     </td>
                                     <td>Rp. {{ number_format($job->salary, 0, ',', '.') }}</td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                             action="{{ route('jobs.destroy', $job->id) }}" method="POST">
-                                            <a href="{{ route('jobs.show', $job->id) }}"
-                                                class="btn btn-sm btn-dark"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="{{ route('jobs.edit', $job->id) }}"
-                                                class="btn btn-sm btn-primary"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a>
+                                            <a href="{{ route('jobs.show', $job->id) }}" class="btn btn-sm btn-dark"><i
+                                                    class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-sm btn-primary"><i
+                                                    class="fa fa-pencil-alt" aria-hidden="true"></i></a>
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"
+                                                    aria-hidden="true"></i></button>
                                         </form>
                                     </td>
                                 </tr>

@@ -33,8 +33,19 @@
                                     <div class="info-box bg-light">
                                         <div class="info-box-content">
                                             <span class="info-box-text text-center text-muted">Type Pekerjaan</span>
-                                            <span
-                                                class="info-box-number text-center text-muted mb-0">{{ $job->jobType }}</span>
+                                            @if ($job->jobType == 'wfh')
+                                                <div
+                                                    class="info-box-number text-center text-white mb-0 btn btn-secondary rounded-pill">
+                                                    {{ $job->jobType }}</div>
+                                            @elseif($job->jobType == 'wfo')
+                                                <div
+                                                    class="info-box-number text-center text-white mb-0 btn btn-primary rounded-pill">
+                                                    {{ $job->jobType }}</div>
+                                            @else
+                                                <div
+                                                    class="info-box-number text-center text-white mb-0 btn btn-warning rounded-pill">
+                                                    {{ $job->jobType }}</div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -42,7 +53,15 @@
                                     <div class="info-box bg-light">
                                         <div class="info-box-content">
                                             <span class="info-box-text text-center text-muted">Status Pekerjaan</span>
-                                            <div class="info-box-number text-center text-white mb-0 btn btn-success rounded-pill">{{ $job->jobStatus }}</div>
+                                            @if ($job->jobStatus == 'buka')
+                                                <div
+                                                    class="info-box-number text-center text-white mb-0 btn btn-success rounded-pill">
+                                                    {{ $job->jobStatus }}</div>
+                                            @else
+                                                <div
+                                                    class="info-box-number text-center text-white mb-0 btn btn-danger rounded-pill">
+                                                    {{ $job->jobStatus }}</div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -55,17 +74,18 @@
                                             <span class="info-box-text "> {{ $job->jobDescription }}</span>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
                                 <div class="col-12">
                                     <div class="info-box bg-light">
                                         <div class="info-box-content">
                                             <h5 class="info-box-number  text-muted">Lokasi Pekerjaan</h5>
-                                            
-                                            <span class="info-box-text "> <i class="fa fa-map-pin" aria-hidden="true"></i>  {{ $job->jobLocation }}</span>
+
+                                            <span class="info-box-text "> <i class="fa fa-map-pin" aria-hidden="true"></i>
+                                                {{ $job->jobLocation }}</span>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -73,6 +93,40 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-gradient-blue">
+                    <h3 class="card-title">Lowongan Kerja</h3>
+
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        @if ($applications && $applications->isNotEmpty())
+                            @foreach ($applications as $application)
+                                <div class="col-md-4 col-sm-6 col-12">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">
+
+                                                {{ $application->status }}
+                                            </span>
+                                            <span class="info-box-number">1,410</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>No applications found.</p>
+                        @endif
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
