@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>JobFinder - login</title>
+    <title>JobFinder - Login</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -15,18 +19,23 @@
     <!-- Custom CSS -->
     <style>
         body {
+            font-family: 'Figtree', sans-serif;
             background: url('https://source.unsplash.com/1600x900/?job') no-repeat center center;
             background-size: cover;
             color: white;
         }
+        @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
         .form-container {
             max-width: 500px;
-            margin: 5% auto;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 2rem;
-            border-radius: 10px;
-            animation: fadeIn 0.5s ease; /* Animasi muncul */
-        }
+    margin: 5% auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Mengatur opasitas menjadi 0.5 */
+    padding: 2rem;
+    border-radius: 10px;
+    animation: fadeIn 0.5s ease; /* Menggunakan animasi fadeIn */
+}
         .form-control {
             background-color: #333;
             color: #fff;
@@ -53,14 +62,10 @@
         .navbar-brand i {
             margin-right: 0.5rem;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <i class="fas fa-briefcase"></i> JobFinder
@@ -100,57 +105,45 @@
         </div>
     </nav>
 
+    <div class="form-container">
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="container">
-        <div class="form-container">
-            <!-- Form Register -->
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
 
-                <!-- Name -->
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus autocomplete="name">
-                </div>
+            <!-- Email Address -->
+            <div class="form-group">
+                <label for="email">{{ __('Email') }}</label>
+                <input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus autocomplete="username">
+                <x-input-error :messages="$errors->get('email')" class="text-danger mt-2" />
+            </div>
 
-                <!-- Email Address -->
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" class="form-control" type="email" name="email" :value="old('email')" required autocomplete="username">
-                </div>
+            <!-- Password -->
+            <div class="form-group mt-4">
+                <label for="password">{{ __('Password') }}</label>
+                <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password">
+                <x-input-error :messages="$errors->get('password')" class="text-danger mt-2" />
+            </div>
 
-                <!-- Password -->
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password">
-                </div>
+            <!-- Remember Me -->
+            <div class="form-check mt-4">
+                <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
+                <label for="remember_me" class="form-check-label">{{ __('Remember me') }}</label>
+            </div>
 
-                <!-- Confirm Password -->
-                <div class="form-group">
-                    <label for="password_confirmation">Confirm Password</label>
-                    <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password">
-                </div>
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                @if (Route::has('password.request'))
+                    <a class="text-decoration-none" href="{{ route('password.request') }}">
+                        {{ __('Forgot your password?') }}
+                    </a>
+                @endif
 
-                <!-- Register As -->
-                <div class="form-group">
-                    <label for="role">Register As</label>
-                    <select id="role" class="form-control" name="role" required>
-                        <option value="user">Pencari Kerja</option>
-                        <option value="company">Perusahaan</option>
-                    </select>
-                </div>
-
-                <!-- Already registered? -->
-                <div class="form-group">
-                    <a class="text-decoration-none" href="{{ route('login') }}">Already registered?</a>
-                </div>
-
-                <!-- Register Button -->
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </div>
-            </form>
-        </div>
+                <button type="submit" class="btn btn-primary">
+                    {{ __('Log in') }}
+                </button>
+            </div>
+        </form>
     </div>
 
     <!-- Bootstrap JS -->
