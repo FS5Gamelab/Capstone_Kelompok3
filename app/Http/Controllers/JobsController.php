@@ -10,12 +10,22 @@ use App\Models\User;
 
 class JobsController extends Controller
 {
-    
+
     public function index()
     {
-        $user = User::findOrFail(Auth::user()->id);
+        $company_id = User::findOrFail(Auth::user()->id)->companies->id;
+        $jobs = Jobs::where('company_id', $company_id)->get();
+        $Jmlapplications = [];
+        foreach($jobs as $job){
+            $Jmlapplications[$job->id]  = Applications::whereHas('job', function ($query) use ($company_id,$job) {
+                $query->where('company_id', $company_id)->where('job_id',  $job->id);
+            })->count();
+        }
+       
         return view('company.partials.jobs.index', [
-            'jobs' => Jobs::where('company_id', $user->companies->id)->get()
+            'jobs' => $jobs,
+            'jml_application' => $Jmlapplications
+
         ]);
     }
 
@@ -50,11 +60,13 @@ class JobsController extends Controller
 
     public function show(Jobs $job)
     {
-        $jobs = Jobs::where('company_id', 3)->get();
-        $applications = Applications::whereHas('job', function ($query) {
-            $query->where('company_id', 3);
+        $company_id = User::findOrFail(Auth::user()->id)->companies->id;
+        $jobs = Jobs::where('company_id', $company_id)->get();
+        $applications = Applications::whereHas('job', function ($query) use ($company_id,$job) {
+            $query->where('company_id', $company_id)->where('job_id', $job->id);
         })->get();
-        return view('company.partials.jobs.show', compact('job','applications'));
+        $classes = ['bg-info', 'bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-dark'];
+        return view('company.partials.jobs.show', compact('job', 'applications', 'classes'));
     }
 
     public function edit($id)
@@ -92,8 +104,8 @@ class JobsController extends Controller
 
     public function destroy($id)
     {
-        $post = Jobs::findOrFail($id);
-        $post->delete();
+        $job = Jobs::findOrFail($id);
+        $job->delete();
         return redirect('/company/jobs')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

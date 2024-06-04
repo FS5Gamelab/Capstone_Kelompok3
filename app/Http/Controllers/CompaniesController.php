@@ -17,6 +17,7 @@ class CompaniesController extends Controller
         return view('company.partials.profile', [
             'user'=> $user,
             'company' => $company,
+            
         ]);
     }
 

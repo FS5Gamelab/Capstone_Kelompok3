@@ -26,7 +26,7 @@ Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['aut
 
 Route::middleware(['auth', 'company'])->group(function () {
     Route::get('post', [DashboardController::class, 'post']);
-    Route::resource('/company/profile', CompaniesController::class);
+    Route::resource('/company-profile', CompaniesController::class);
     Route::resource('/company/jobs', JobsController::class);
 });
 
@@ -36,5 +36,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 require __DIR__.'/auth.php';

@@ -100,29 +100,33 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-gradient-blue">
-                    <h3 class="card-title">Lowongan Kerja</h3>
-
+                    <h3 class="card-title">Pelamar</h3>
                 </div>
                 <div class="card-body">
 
                     <div class="row">
                         @if ($applications && $applications->isNotEmpty())
                             @foreach ($applications as $application)
+                                @php
+                                    $randomClass = $classes[array_rand($classes)];
+                                @endphp
                                 <div class="col-md-4 col-sm-6 col-12">
                                     <div class="info-box">
-                                        <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+                                        <span class="info-box-icon {{ $randomClass }}"><i
+                                                class="far  fa-user"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">
-
-                                                {{ $application->status }}
+                                                {{ $application->seeker->fullName }}
                                             </span>
-                                            <span class="info-box-number">1,410</span>
+                                            <span class="info-box-number"> {{ $application->seeker->phone }}</span>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         @else
-                            <p>No applications found.</p>
+                        <div class="mx-auto">
+                            <h5>No applications found.</h5>
+                        </div>
                         @endif
 
                     </div>

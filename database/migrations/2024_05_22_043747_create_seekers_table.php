@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('resume');
             $table->string('profile');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

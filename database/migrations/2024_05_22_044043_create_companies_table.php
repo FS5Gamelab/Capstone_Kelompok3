@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('companyAddress')->nullable();;
             $table->string('companyPhone')->nullable();;
             $table->foreign('user_id')->references('id')->on('users');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

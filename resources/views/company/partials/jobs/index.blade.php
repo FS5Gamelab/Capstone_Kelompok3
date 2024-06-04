@@ -23,49 +23,50 @@
                     <table id="example2" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Nama Pekerjaan</th>
-                                <th>Lokasi Pekerjaan</th>
-                                <th width="12%">Type Pekerjaan</th>
-                                <th width="12%">Status Pekerjaan</th>
-                                <th>Gaji</th>
-                                <th width="12%">Action</th>
+                                <th width="2%" class="text-center">No</th>
+                                <th class="text-center">Nama Pekerjaan</th>
+                                <th class="text-center">Lokasi Pekerjaan</th>
+                                <th width="8%" class="text-center">Type Pekerjaan</th>
+                                <th width="8%" class="text-center">Status Pekerjaan</th>
+                                <th width="8%" class="text-center" >Jumlah Pelamar</th>
+                                <th class="text-center">Gaji</th>
+                                <th width="12%" class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($jobs as $job)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $job->jobTitle }}</td>
-                                    <td>{{ $job->jobLocation }}</td>
-                                    <td>
-
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td >{{ $job->jobTitle }}</td>
+                                    <td >{{ $job->jobLocation }}</td>
+                                    <td class="text-center">
                                         @if ($job->jobType == 'wfh')
-                                            <div class="btn btn-secondary rounded-pill">
-                                                {{ $job->jobType }}
-                                            </div>
+                                        <strong class="bg-secondary  px-2 rounded-pill">
+                                            {{ $job->jobType }}
+                                        </strong>
                                         @elseif($job->jobType == 'wfo')
-                                            <div class="btn btn-primary rounded-pill">
+                                            <strong class="bg-primary  px-2 rounded-pill">
                                                 {{ $job->jobType }}
-                                            </div>
+                                            </strong>
                                         @else
-                                            <div class="btn btn-warning rounded-pill">
+                                            <strong class="bg-warning  px-2 rounded-pill">
                                                 {{ $job->jobType }}
-                                            </div>
+                                            </strong>
                                         @endif
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         @if ($job->jobStatus == 'buka')
-                                            <div class="btn btn-success rounded-pill">
+                                            <strong class="bg-success px-3 rounded-pill">
                                                 {{ $job->jobStatus }}
-                                            </div>
+                                            </strong>
                                         @else
-                                            <div class="btn btn-danger rounded-pill">
+                                            <strong class="bg-danger px-3 rounded-pill">
                                                 {{ $job->jobStatus }}
-                                            </div>
+                                            </strong>
                                         @endif
                                     </td>
-                                    <td>Rp. {{ number_format($job->salary, 0, ',', '.') }}</td>
+                                    <td class="text-center">{{ $jml_application[$job->id] }}</td>
+                                    <td >Rp. {{ number_format($job->salary, 0, ',', '.') }}</td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                             action="{{ route('jobs.destroy', $job->id) }}" method="POST">

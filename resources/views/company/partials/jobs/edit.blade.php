@@ -63,8 +63,8 @@
                         <div class="form-group">
                             <label for="job_status">Status Pekerjaan</label>
                             <select name="job_status" id="job_status"  class="form-control">
-                                <option value="buka" {{ old('job_status', $jobs->jobType) == 'buka' ? 'selected' : '' }} >Buka</option>
-                                <option value="tutup" {{ old('job_status', $jobs->jobType) == 'tutup' ? 'selected' : '' }}>Tutup</option>
+                                <option value="buka" {{ old('job_status', $jobs->jobStatus) == 'buka' ? 'selected' : '' }} >Buka</option>
+                                <option value="tutup" {{ old('job_status', $jobs->jobStatus) == 'tutup' ? 'selected' : '' }}>Tutup</option>
                               </select>
                             @error('job_status')
                                 <small class="text-danger"> {{ $message }}</small>

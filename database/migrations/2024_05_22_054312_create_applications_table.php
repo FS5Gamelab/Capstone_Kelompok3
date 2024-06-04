@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('status',['pending', 'accepted','rejected','in review'])->default('pending');
             $table->foreign('job_id')->references('id')->on('jobs');
             $table->foreign('seeker_id')->references('id')->on('seekers');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

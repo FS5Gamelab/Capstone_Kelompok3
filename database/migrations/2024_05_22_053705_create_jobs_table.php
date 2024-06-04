@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('jobStatus',['buka', 'tutup'])->default('buka');
             $table->date('postedDate');
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
