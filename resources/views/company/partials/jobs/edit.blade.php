@@ -4,7 +4,7 @@
         <div class="col col-md-12">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Buka Lowongan Pekerjaan</h3>
+                    <h3 class="card-title">Edit Lowongan Pekerjaan</h3>
             </ul>
                 </div>
                 <form method="POST" action="{{route('jobs.update',$jobs->id) }}" enctype="multipart/form-data">
@@ -23,6 +23,19 @@
                             <textarea rows="5" class="form-control @error('job_description') is-invalid @enderror" name="job_description">{{ old('job_description', $jobs->jobDescription) }}</textarea>
                             @error('job_description')
                                 <small class="text-danger"> {{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold">KATEGORI</label>
+                            <select name="category_id" id="category_id" class="form-control">
+                                @foreach($categories as $k)
+                                <option value="{{ $k->id }}" {{ $k->id == $jobs->category_id ? 'selected' : '' }}>{{ $k->categoryName }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
                             @enderror
                         </div>
                         <div class="form-group">

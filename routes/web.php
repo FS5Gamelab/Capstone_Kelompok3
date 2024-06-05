@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ApplicationsController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -25,9 +27,15 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth', 'company'])->group(function () {
-    Route::get('post', [DashboardController::class, 'post']);
     Route::resource('/company-profile', CompaniesController::class);
     Route::resource('/company/jobs', JobsController::class);
+    Route::get('/company/jobs-trash', [JobsController::class, 'trash'])->name('jobs.trash');
+    Route::get('/company/jobs-restore/{id}', [JobsController::class, 'restore'])->name('jobs.restore');
+    Route::resource('applications', ApplicationsController::class);
+    Route::resource('company-category', CategoriesController::class);
+    Route::get('company-category-trash', [CategoriesController::class, 'trash'])->name('company-category.trash');
+    Route::get('company-category-restore/{id}', [CategoriesController::class, 'restore'])->name('company-category.restore');
+    Route::delete('company-category-deletepermanently/{id}', [CategoriesController::class, 'deletepermanently'])->name('company-category.deletepermanently');
 });
 
 Route::middleware('auth')->group(function () {

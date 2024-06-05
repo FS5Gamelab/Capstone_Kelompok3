@@ -119,7 +119,12 @@
             <span class="float-right text-muted text-sm">2 days</span>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="dropdown-item">
+                <i class="fa fa-sign-out-alt"></i>Log out
+            </button>
+        </form>
         </div>
       </li>
       <li class="nav-item">

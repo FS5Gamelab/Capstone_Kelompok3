@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Jobs extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'company_id',
+        'category_id',
         'jobTitle',
         'jobDescription',
         'jobRequire',
@@ -23,14 +24,21 @@ class Jobs extends Model
         'postedDate'
     ];
 
-public function company(){
-    return $this->belongsTo(Companies::class);
+    protected $dates = ['deleted_at'];
+
+    public function company()
+    {
+        return $this->belongsTo(Companies::class);
+    }
+
+    public function applications()
+    {
+
+        return $this->hasMany(Applications::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class);
+    }
 }
-
-public function applications(){
-
-    return $this->hasMany(Applications::class);
-}
-}
-
-
