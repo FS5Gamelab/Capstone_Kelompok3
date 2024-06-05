@@ -107,12 +107,6 @@
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
-                <!-- Name -->
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus autocomplete="name">
-                </div>
-
                 <!-- Email Address -->
                 <div class="form-group">
                     <label for="email">Email</label>
