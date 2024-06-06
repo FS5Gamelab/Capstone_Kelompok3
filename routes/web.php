@@ -1,11 +1,9 @@
 <?php
 
-<<<<<<< HEAD
+
 use App\Http\Controllers\AppliedJobsController;
-=======
 use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\CategoriesController;
->>>>>>> 80fb4e98eae43cae4b94f65851ed622675f8da30
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -57,6 +55,7 @@ Route::middleware('auth')->group(function () {
         return view('seeker.layout.master');
     })->name('seeker.home');
     Route::get('/seeker/applied_jobs', [SeekersController::class, 'appliedJobs'])->name('seeker.applied_jobs');
+    Route::get('/profile', 'ProfileController@show')->name('profile.show');
 
 
 });
