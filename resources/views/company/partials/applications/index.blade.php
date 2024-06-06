@@ -35,45 +35,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($jobs as $job)
+                            @foreach ($applications as $a)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td >{{ $job->jobTitle }}</td>
-                                    <td >{{ $job->jobLocation }}</td>
+                                    <td >{{ $a->job_id }}</td>
+                                    <td >{{ $a->seeker_id }}</td>
                                     <td class="text-center">
-                                        @if ($job->jobType == 'wfh')
-                                        <strong class="bg-secondary  px-2 rounded-pill">
-                                            {{ $job->jobType }}
-                                        </strong>
-                                        @elseif($job->jobType == 'wfo')
-                                            <strong class="bg-primary  px-2 rounded-pill">
-                                                {{ $job->jobType }}
-                                            </strong>
-                                        @else
-                                            <strong class="bg-warning  px-2 rounded-pill">
-                                                {{ $job->jobType }}
-                                            </strong>
-                                        @endif
+                                        {{ $a->seeker_id }}
                                     </td>
                                     <td class="text-center">
-                                        @if ($job->jobStatus == 'buka')
-                                            <strong class="bg-success px-3 rounded-pill">
-                                                {{ $job->jobStatus }}
-                                            </strong>
-                                        @else
-                                            <strong class="bg-danger px-3 rounded-pill">
-                                                {{ $job->jobStatus }}
-                                            </strong>
-                                        @endif
+                                      {{ $a->status }}
                                     </td>
-                                    <td class="text-center">{{ $jml_application[$job->id] }}</td>
-                                    <td >Rp. {{ number_format($job->salary, 0, ',', '.') }}</td>
+                                    <td class="text-center"> {{ $a->seeker_id }} </td>
+                                    <td > {{ $a->seeker_id }} </td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                            action="{{ route('jobs.destroy', $job->id) }}" method="POST">
-                                            <a href="{{ route('jobs.show', $job->id) }}" class="btn btn-sm btn-dark"><i
+                                            action="{{ route('applications.destroy', $a->id) }}" method="POST">
+                                            <a href="{{ route('applications.show', $a->id) }}" class="btn btn-sm btn-dark"><i
                                                     class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-sm btn-primary"><i
+                                            <a href="{{ route('applications.edit', $a->id) }}" class="btn btn-sm btn-primary"><i
                                                     class="fa fa-pencil-alt" aria-hidden="true"></i></a>
                                             @csrf
                                             @method('DELETE')

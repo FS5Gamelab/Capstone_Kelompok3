@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('jobTitle');
-            $table->string('jobDescription');
+            $table->text('jobDescription');
             $table->string('jobRequire');
             $table->string('jobLocation');
             $table->string('jobType');
@@ -23,14 +24,12 @@ return new class extends Migration
             $table->enum('jobStatus',['buka', 'tutup'])->default('buka');
             $table->date('postedDate');
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->softDeletes();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('jobs');

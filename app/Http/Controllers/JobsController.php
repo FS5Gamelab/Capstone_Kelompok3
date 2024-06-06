@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applications;
+use App\Models\Categories;
 use App\Models\Jobs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,12 +17,12 @@ class JobsController extends Controller
         $company_id = User::findOrFail(Auth::user()->id)->companies->id;
         $jobs = Jobs::where('company_id', $company_id)->get();
         $Jmlapplications = [];
-        foreach($jobs as $job){
-            $Jmlapplications[$job->id]  = Applications::whereHas('job', function ($query) use ($company_id,$job) {
+        foreach ($jobs as $job) {
+            $Jmlapplications[$job->id]  = Applications::whereHas('job', function ($query) use ($company_id, $job) {
                 $query->where('company_id', $company_id)->where('job_id',  $job->id);
             })->count();
         }
-       
+
         return view('company.partials.jobs.index', [
             'jobs' => $jobs,
             'jml_application' => $Jmlapplications
@@ -35,13 +36,17 @@ class JobsController extends Controller
     }
     public function create()
     {
-        return view('company.partials.jobs.create');
+        $categories = Categories::all();
+        return view('company.partials.jobs.create', [
+            'categories' => $categories
+        ]);
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'job_title'     => 'required',
+            'category_id'     => 'required',
             'job_description'   => 'required',
             'job_require'   => 'required',
             'job_location'   => 'required',
@@ -51,6 +56,7 @@ class JobsController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         Jobs::create([
             'company_id'     => $user->companies->id,
+            'category_id'     => $request->category_id,
             'jobTitle'     => $request->job_title,
             'jobDescription'   => $request->job_description,
             'jobRequire'     => $request->job_require,
@@ -59,14 +65,14 @@ class JobsController extends Controller
             'salary'     => $request->job_salary,
             'postedDate'     => now()->format('Y-m-d'),
         ]);
-        return redirect('/company/jobs')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect('/company/jobs')->with(['success' => 'Lowongan Baru Dibuka !!']);
     }
 
     public function show(Jobs $job)
     {
         $company_id = User::findOrFail(Auth::user()->id)->companies->id;
         $jobs = Jobs::where('company_id', $company_id)->get();
-        $applications = Applications::whereHas('job', function ($query) use ($company_id,$job) {
+        $applications = Applications::whereHas('job', function ($query) use ($company_id, $job) {
             $query->where('company_id', $company_id)->where('job_id', $job->id);
         })->get();
         $classes = ['bg-info', 'bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-dark'];
@@ -75,9 +81,10 @@ class JobsController extends Controller
 
     public function edit($id)
     {
-
+        $categories = Categories::all();
         return view('company.partials.jobs.edit', [
-            'jobs' => Jobs::findOrFail($id)
+            'jobs' => Jobs::findOrFail($id),
+            'categories'=> $categories
         ]);
     }
 
@@ -85,6 +92,7 @@ class JobsController extends Controller
     {
         $this->validate($request, [
             'job_title'     => 'required',
+            'category_id'     => 'required',
             'job_description'   => 'required',
             'job_require'   => 'required',
             'job_location'   => 'required',
@@ -94,6 +102,7 @@ class JobsController extends Controller
         ]);
         $job = Jobs::findOrFail($id);
         $job->update([
+            'category_id' => $request->category_id,
             'jobTitle'     => $request->job_title,
             'jobDescription'   => $request->job_description,
             'jobRequire'     => $request->job_require,
@@ -111,5 +120,19 @@ class JobsController extends Controller
         $job = Jobs::findOrFail($id);
         $job->delete();
         return redirect('/company/jobs')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+
+    public function trash()
+    {
+
+        $jobs = Jobs::onlyTrashed()->get();
+        return view('company.partials.jobs.trash', ['jobs' => $jobs]);
+    }
+
+    public function restore($id)
+    {
+        $jobs = Jobs::onlyTrashed()->where('id', $id);
+        $jobs->restore();
+        return redirect('/company/jobs')->with(['success' => 'Data Berhasil Dipilihkan!']);
     }
 }
