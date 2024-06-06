@@ -28,7 +28,11 @@ class JobsController extends Controller
 
         ]);
     }
-
+    public function publicIndex()
+    {
+        $jobs = Jobs::all();
+        return view('public.jobs.index', compact('jobs'));
+    }
     public function create()
     {
         return view('company.partials.jobs.create');

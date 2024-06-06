@@ -71,17 +71,17 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">
+                        <a class="nav-link active" aria-current="page" href="{{ url('/') }}">
                             <i class="fas fa-home"></i> Beranda
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="">
                             <i class="fas fa-search"></i> Cari Pekerjaan
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ url('/') }}#contact">
                             <i class="fas fa-envelope"></i> Hubungi Kami
                         </a>
                     </li>
@@ -100,12 +100,17 @@
         </div>
     </nav>
 
-
     <div class="container">
         <div class="form-container">
             <!-- Form Register -->
             <form method="POST" action="{{ route('register') }}">
                 @csrf
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus autocomplete="name">
+                </div>
 
                 <!-- Email Address -->
                 <div class="form-group">
@@ -153,3 +158,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
