@@ -100,38 +100,77 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-gradient-blue">
-                    <h3 class="card-title">Pelamar</h3>
+                    <h3 class="card-title">Data Pelamar</h3>
                 </div>
+
                 <div class="card-body">
-
-                    <div class="row">
-                        @if ($applications && $applications->isNotEmpty())
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama Pelamar</th>
+                                <th class="text-center">No.Hp Pelamar</th>
+                                <th class="text-center">Skill Pelamar</th>
+                                <th class="text-center">Resume Pelamar</th>
+                                <th class="text-center">Alamat Pelamar</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             @foreach ($applications as $application)
-                                @php
-                                    $randomClass = $classes[array_rand($classes)];
-                                @endphp
-                                <div class="col-md-4 col-sm-6 col-12">
-                                    <div class="info-box">
-                                        <span class="info-box-icon {{ $randomClass }}"><i
-                                                class="far  fa-user"></i></span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">
-                                                {{ $application->seeker->fullName }}
-                                            </span>
-                                            <span class="info-box-number"> {{ $application->seeker->phone }}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td>{{ $application->seeker->fullName }}</td>
+                                    <td> {{ $application->seeker->phone }}</td>
+                                    <td class="text-center">
+                                        {{ $application->seeker->skills }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ $application->seeker->resume }}
+                                    </td>
+                                    <td class="text-center">{{ $application->seeker->address }}</td>
+                                    <td>
+                                        @if($application->status == 'pending')
+                                        <strong class="bg-warning  px-2 rounded-pill">
+                                            {{ $application->status }}
+                                        </strong>
+                                        @elseif($application->status == 'accepted')
+                                        <strong class="bg-success  px-2 rounded-pill">
+                                            {{ $application->status }}
+                                        </strong>
+                                        @elseif($application->status == 'rejected')
+                                        <strong class="bg-danger  px-2 rounded-pill">
+                                            {{ $application->status }}
+                                        </strong>
+                                        @else
+                                        <strong class="bg-primary  px-2 rounded-pill">
+                                            {{ $application->status }}
+                                        </strong>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                                            action="{{ route('applications.destroy', $application->id) }}" method="POST">
+                                            <a href="{{ route('applications.show', $application->id) }}"
+                                                class="btn btn-sm btn-dark"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="{{ route('applications.edit', $application->id) }}"
+                                                class="btn btn-sm btn-primary"><i class="fa fa-pencil-alt"
+                                                    aria-hidden="true"></i></a>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"
+                                                    aria-hidden="true"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
-                        @else
-                        <div class="mx-auto">
-                            <h5>No applications found.</h5>
-                        </div>
-                        @endif
-
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
+
         </div>
     </div>
 @endsection

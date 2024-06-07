@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!--  -->
     <title>JobFinder</title>
 
     <!-- Fonts -->
@@ -68,12 +67,33 @@
             max-width: 100px;
             margin: 15px;
         }
+        .card-icon {
+            font-size: 3em;
+            margin-bottom: 1em;
+        }
+        .job-status-buka {
+            color: green;
+        }
+        .job-status-tutup {
+            color: red;
+        }
+        .contact-section {
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+        }
+        .contact-section h2 {
+            margin-bottom: 2rem;
+        }
+        .contact-section .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ url('/') }}">
                 <i class="fas fa-briefcase"></i> JobFinder
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +102,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">
+                        <a class="nav-link active" aria-current="page" href="{{ url('/') }}">
                             <i class="fas fa-home"></i> Beranda
                         </a>
                     </li>
@@ -92,7 +112,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="#contact">
                             <i class="fas fa-envelope"></i> Hubungi Kami
                         </a>
                     </li>
@@ -187,6 +207,35 @@
 
     <section class="py-5">
         <div class="container">
+            <h2 class="text-center mb-4">Lowongan Pekerjaan Tersedia</h2>
+            <div class="row">
+                @foreach ($jobs as $job)
+                    <div class="col-12 col-sm-6 col-lg-4 mb-3" data-aos="zoom-in">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <i class="fas fa-briefcase card-icon"></i>
+                                <h4 class="card-title">{{ $job->jobTitle }}</h4>
+                                <p class="card-text"><i class="fas fa-align-left"></i> {{ $job->jobDescription }}</p>
+                                <p class="card-text"><i class="fas fa-map-marker-alt"></i> <strong>Lokasi:</strong> {{ $job->jobLocation }}</p>
+                                <p class="card-text"><i class="fas fa-clipboard-list"></i> <strong>Tipe:</strong> {{ $job->jobType }}</p>
+                                <p class="card-text"><i class="fas fa-dollar-sign"></i> <strong>Gaji:</strong> {{ $job->salary }}</p>
+                                <p class="card-text">
+                                    <i class="fas fa-info-circle"></i> <strong>Status:</strong> 
+                                    <span class="job-status-{{ $job->jobStatus }}">
+                                        {{ ucfirst($job->jobStatus) }}
+                                    </span>
+                                </p>
+                                <a href="#" class="btn btn-primary">Lihat Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
             <h2 class="text-center mb-4">Perusahaan yang Bekerja Sama</h2>
             <div class="row justify-content-center">
                 <div class="col-6 col-sm-4 col-md-2 company-logo" data-aos="fade-up">
@@ -202,6 +251,48 @@
                     <img src="https://logo.clearbit.com/apple.com" alt="Apple" class="img-fluid">
                 </div>
                 <!-- Tambahkan logo perusahaan lain di sini -->
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="text-center mb-4">Hubungi Kami</h2>
+            <div class="row">
+                <div class="col-md-4 text-center" data-aos="fade-up">
+                    <i class="fas fa-phone-alt contact-icon"></i>
+                    <h5>Telepon</h5>
+                    <p>+62 123 456 789</p>
+                </div>
+                <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <h5>Email</h5>
+                    <p>support@jobfinder.com</p>
+                </div>
+                <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-map-marker-alt contact-icon"></i>
+                    <h5>Alamat</h5>
+                    <p>Jl. Merdeka No. 123, Jakarta</p>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6 mx-auto">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Nama</label>
+                            <input type="text" class="form-control" id="name" placeholder="Nama Anda">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email Anda">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Pesan</label>
+                            <textarea class="form-control" id="message" rows="4" placeholder="Pesan Anda"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Kirim Pesan</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>

@@ -5,8 +5,6 @@
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Buka Lowongan Pekerjaan</h3>
-
-
                     </ul>
                 </div>
                 <form method="POST" action="{{ route('jobs.store') }}" enctype="multipart/form-data">
@@ -27,6 +25,20 @@
                             @error('job_description')
                                 <small class="text-danger"> {{ $message }}</small>
                             @enderror
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold">Kategori</label>
+                            <select name="category_id" id="category_id" class="form-control">
+                                @foreach($categories as $k)
+                                <option value="{{ $k->id }}">{{ $k->categoryName }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
+                            @enderror
+
                         </div>
                         <div class="form-group">
                             <label for="job_require">Syarat Pekerjaan</label>

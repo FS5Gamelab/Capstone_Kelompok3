@@ -1,29 +1,48 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+<!-- resources/views/profile/edit.blade.php -->
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
+@extends('seeker.layout.app')
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
+@section('content')
+<div class="container">
+    <h1>Edit Profile</h1>
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
+    @if (session('status') == 'profile-updated')
+        <div class="alert alert-success">
+            Profile updated successfully!
         </div>
-    </div>
-</x-app-layout>
+    @endif
+
+    <form method="POST" action="{{ route('profile.update') }}">
+        @csrf
+        @method('PATCH')
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="{{ old('name', auth()->user()->name) }}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="{{ old('email', auth()->user()->email) }}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </div>
+    </form>
+
+    <form method="POST" action="{{ route('profile.destroy') }}">
+        @csrf
+        @method('DELETE')
+
+        <div class="form-group">
+            <label for="password">Confirm Password</label>
+            <input type="password" name="password" id="password" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Delete Account</button>
+        </div>
+    </form>
+</div>
+@endsection
