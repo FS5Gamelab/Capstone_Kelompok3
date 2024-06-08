@@ -107,10 +107,10 @@
                 @csrf
 
                 <!-- Name -->
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="name">Name</label>
                     <input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus autocomplete="name">
-                </div>
+                </div> --}}
 
                 <!-- Email Address -->
                 <div class="form-group">

@@ -25,20 +25,18 @@ class JobsController extends Controller
 
         return view('company.partials.jobs.index', [
             'jobs' => $jobs,
-            'jml_application' => $Jmlapplications
+            'jml_application' => $Jmlapplications,
+            'title' => 'Jobs'
 
         ]);
     }
-    public function publicIndex()
-    {
-        $jobs = Jobs::all();
-        return view('public.jobs.index', compact('jobs'));
-    }
+
     public function create()
     {
         $categories = Categories::all();
         return view('company.partials.jobs.create', [
-            'categories' => $categories
+            'categories' => $categories,
+            'title' => 'Jobs'
         ]);
     }
 
@@ -75,8 +73,12 @@ class JobsController extends Controller
         $applications = Applications::whereHas('job', function ($query) use ($company_id, $job) {
             $query->where('company_id', $company_id)->where('job_id', $job->id);
         })->get();
-        $classes = ['bg-info', 'bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-dark'];
-        return view('company.partials.jobs.show', compact('job', 'applications', 'classes'));
+        return view('company.partials.jobs.show',[
+                'job' => $job,
+                'applications' => $applications,
+                'title' => 'Jobs'
+            ]
+        );
     }
 
     public function edit($id)
@@ -84,7 +86,8 @@ class JobsController extends Controller
         $categories = Categories::all();
         return view('company.partials.jobs.edit', [
             'jobs' => Jobs::findOrFail($id),
-            'categories'=> $categories
+            'categories' => $categories,
+             'title' => 'Jobs'
         ]);
     }
 
@@ -126,7 +129,7 @@ class JobsController extends Controller
     {
 
         $jobs = Jobs::onlyTrashed()->get();
-        return view('company.partials.jobs.trash', ['jobs' => $jobs]);
+        return view('company.partials.jobs.trash', ['jobs' => $jobs, 'title' => 'Jobs']);
     }
 
     public function restore($id)
@@ -136,10 +139,10 @@ class JobsController extends Controller
         return redirect('/company/jobs')->with(['success' => 'Data Berhasil Dipilihkan!']);
     }
 
-    public function deletepermanently($id)
-    {
-        $category = Jobs::onlyTrashed()->where('id', $id);
-        $category->forceDelete();
-        return redirect('/company/jobs')->with(['success' => 'Data Dihapus Permanen']);
-    }
+    // public function deletepermanently($id)
+    // {
+    //     $category = Jobs::onlyTrashed()->where('id', $id);
+    //     $category->forceDelete();
+    //     return redirect('/company/jobs')->with(['success' => 'Data Dihapus Permanen']);
+    // }
 }

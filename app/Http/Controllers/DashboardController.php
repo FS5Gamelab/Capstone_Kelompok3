@@ -14,7 +14,7 @@ class DashboardController extends Controller
         if (Auth::check()) {
             $role = Auth::user()->role;
             if ($role == 'company') {
-                return view('company.partials.dashboard');
+                return view('company.partials.dashboard',['title' => 'Dashboard']);
             } elseif ($role == 'user') {
                 $jobs = Jobs::all(); // Retrieve all jobs from the database
                 return view('seeker.layout.master', compact('jobs'));
@@ -22,12 +22,10 @@ class DashboardController extends Controller
                 return redirect()->back();
             }
         } else {
-            $jobs = Jobs::all(); // Retrieve all jobs from the database for guests
+            $jobs = Jobs::all();
             return view('welcome', compact('jobs'));
         }
     }
 
-    public function post(){
-        return 'iki post';
-    }
+  
 }

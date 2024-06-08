@@ -73,8 +73,8 @@
                                         <a href="{{ route('applications.restore', $a->id) }}" class="btn btn-sm btn-success"><i class="fa fa-recycle" aria-hidden="true"></i></a>
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"
-                                                aria-hidden="true"></i></button>
+                                        {{-- <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"
+                                                aria-hidden="true"></i></button> --}}
                                     </form>
                                     </td>
                                 </tr>

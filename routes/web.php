@@ -40,14 +40,14 @@ Route::middleware(['auth', 'company'])->group(function () {
     Route::resource('/company/jobs', JobsController::class);
     Route::get('/company/jobs-trash', [JobsController::class, 'trash'])->name('jobs.trash');
     Route::get('/company/jobs-restore/{id}', [JobsController::class, 'restore'])->name('jobs.restore');
-    Route::delete('/company/jobs-deletepermanently/{id}', [JobsController::class, 'deletepermanently'])->name('jobs.deletepermanently');
+    // Route::delete('/company/jobs-deletepermanently/{id}', [JobsController::class, 'deletepermanently'])->name('jobs.deletepermanently');
     Route::resource('applications', ApplicationsController::class);
     Route::get('applications-trash', [ApplicationsController::class, 'trash'])->name('applications.trash');
     Route::get('applications-restore/{id}', [ApplicationsController::class, 'restore'])->name('applications.restore');
-    Route::resource('company-category', CategoriesController::class);
+    Route::resource('company-category', CategoriesController::class)->except(['show']);
     Route::get('company-category-trash', [CategoriesController::class, 'trash'])->name('company-category.trash');
     Route::get('company-category-restore/{id}', [CategoriesController::class, 'restore'])->name('company-category.restore');
-    Route::delete('company-category-deletepermanently/{id}', [CategoriesController::class, 'deletepermanently'])->name('company-category.deletepermanently');
+    // Route::delete('company-category-deletepermanently/{id}', [CategoriesController::class, 'deletepermanently'])->name('company-category.deletepermanently');
 });
 
 Route::middleware('auth')->group(function () {

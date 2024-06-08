@@ -13,20 +13,23 @@ class ApplicationsController extends Controller
 
     public function index()
     {
+
         $company_id = User::findOrFail(Auth::user()->id)->companies->id;
         $applications = Applications::whereHas('job', function ($query) use ($company_id) {
             $query->where('company_id', $company_id);
         })->get();
         return view('company.partials.applications.index', [
-            'applications' => $applications
+            'applications' => $applications,
+            'title' => 'Application'
         ]);
     }
 
     public function edit($id)
     {
-
+        session(['previous_url' => url()->previous()]);
         return view('company.partials.applications.edit', [
-            'application' => Applications::findOrFail($id)
+            'application' => Applications::findOrFail($id),
+            'title' => 'Application'
         ]);
     }
 
@@ -39,7 +42,12 @@ class ApplicationsController extends Controller
         $applications->update([
             'status'     => $request->status,
         ]);
-        // return redirect('/company/jobs/' . $applications->job_id)->with(['success' => 'Data Berhasil Diubah!']);
+        $previousUrl = session('previous_url');
+        if (strpos($previousUrl, '/company/jobs/') !== false) {
+            return redirect($previousUrl)->with(['success' => 'Data Berhasil Diubah!']);
+        } elseif (strpos($previousUrl, '/applications') !== false) {
+            return redirect('/applications')->with(['success' => 'Data Berhasil Diubah!']);
+        }
         return redirect('/applications')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
@@ -52,13 +60,15 @@ class ApplicationsController extends Controller
 
     public function trash()
     {
-        // $applications = Applications::onlyTrashed()->get();
         $company_id = User::findOrFail(Auth::user()->id)->companies->id;
         $trashedApplications = Applications::onlyTrashed()
             ->whereHas('job', function ($query) use ($company_id) {
                 $query->where('company_id', $company_id);
             })->get();
-        return view('company.partials.applications.trash', ['trashedApplications' => $trashedApplications]);
+        return view('company.partials.applications.trash', [
+            'trashedApplications' => $trashedApplications,
+            'title' => 'Application'
+        ]);
     }
 
     public function restore($id)

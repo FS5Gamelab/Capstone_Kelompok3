@@ -37,14 +37,14 @@
                                     <td>{{ $category->categoryDescription }}</td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ingin Menghapus Permanen?');"
-                                            action="{{ route('company-category.deletepermanently', $category->id) }}" method="POST">
+                                            method="POST">
                                             <a href="{{ route('company-category.restore', $category->id) }}"
                                                 class="btn btn-sm btn-primary"><i class="fa fa-recycle"
                                                     aria-hidden="true"></i></a>
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"
-                                                    aria-hidden="true"></i></button>
+                                            {{-- <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"
+                                                    aria-hidden="true"></i></button> --}}
                                         </form>
                                     </td>
                                 </tr>

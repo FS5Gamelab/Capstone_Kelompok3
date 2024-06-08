@@ -4,7 +4,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="/company/jobs" class="ms-auto btn btn-success"><i class="fa fa-database" aria-hidden="true"></i> Data Lowongan Pekerjaan</a>
+                    <a href="/company/jobs" class="ms-auto btn btn-success"><i class="fa fa-database" aria-hidden="true"></i>
+                        Data Lowongan Pekerjaan</a>
                 </div>
                 <div class="card-body">
                     <table id="example2" class="table table-bordered table-hover">
@@ -55,13 +56,11 @@
                                     <td>Rp. {{ number_format($job->salary, 0, ',', '.') }}</td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin Ingin Menghapus Permanen ?');"
-                                            action="{{ route('jobs.deletepermanently', $job->id) }}" method="POST">
-                                            
-                                            <a href="{{ route('jobs.restore', $job->id) }}" class="btn btn-sm btn-success"><i class="fa fa-recycle" aria-hidden="true"></i></a>
+                                            method="POST">
+                                            <a href="{{ route('jobs.restore', $job->id) }}"
+                                                class="btn btn-sm btn-success"><i class="fa fa-recycle"
+                                                    aria-hidden="true"></i></a>
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"
-                                                    aria-hidden="true"></i></button>
                                         </form>
                                     </td>
                                 </tr>
