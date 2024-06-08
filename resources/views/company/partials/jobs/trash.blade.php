@@ -54,8 +54,8 @@
 
                                     <td>Rp. {{ number_format($job->salary, 0, ',', '.') }}</td>
                                     <td class="text-center">
-                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                            action="{{ route('jobs.destroy', $job->id) }}" method="POST">
+                                        <form onsubmit="return confirm('Apakah Anda Yakin Ingin Menghapus Permanen ?');"
+                                            action="{{ route('jobs.deletepermanently', $job->id) }}" method="POST">
                                             
                                             <a href="{{ route('jobs.restore', $job->id) }}" class="btn btn-sm btn-success"><i class="fa fa-recycle" aria-hidden="true"></i></a>
                                             @csrf

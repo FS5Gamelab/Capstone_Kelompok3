@@ -135,4 +135,11 @@ class JobsController extends Controller
         $jobs->restore();
         return redirect('/company/jobs')->with(['success' => 'Data Berhasil Dipilihkan!']);
     }
+
+    public function deletepermanently($id)
+    {
+        $category = Jobs::onlyTrashed()->where('id', $id);
+        $category->forceDelete();
+        return redirect('/company/jobs')->with(['success' => 'Data Dihapus Permanen']);
+    }
 }

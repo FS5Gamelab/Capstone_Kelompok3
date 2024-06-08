@@ -58,7 +58,7 @@
                          
                             <select name="job_type" id="job_type"  class="form-control">
                                 <option value="wfh" {{ old('job_type', $jobs->jobType) == 'wfh' ? 'selected' : '' }} >WFH</option>
-                                <option value="wfo" {{ old('job_type', $jobs->jobType) == 'wf0' ? 'selected' : '' }}>WFO</option>
+                                <option value="wfo" {{ old('job_type', $jobs->jobType) == 'wfo' ? 'selected' : '' }}>WFO</option>
                                 <option value="hybrid" {{ old('job_type', $jobs->jobType) == 'hybrid' ? 'selected' : '' }} >Hybrid</option>
                             </select>
                             @error('job_type')

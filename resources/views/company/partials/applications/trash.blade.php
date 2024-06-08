@@ -16,8 +16,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('applications.trash') }}" class="float-right btn btn-danger"><i class="fa fa-trash"
-                            aria-hidden="true"></i>Sampah</a>
+                    <a href="/applications" class="ms-auto btn btn-success"><i class="fa fa-database" aria-hidden="true"></i> Data Lowongan Pekerjaan</a>
                 </div>
                 <div class="card-body">
                     <table id="example2" class="table table-bordered table-hover">
@@ -35,7 +34,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($applications as $a)
+                            @foreach ($trashedApplications as $a)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $a->job->jobTitle }}</td>
@@ -68,18 +67,15 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                            action="{{ route('applications.destroy', $a->id) }}" method="POST">
-                                            {{-- <a href="{{ route('applications.show', $a->id) }}"
-                                                class="btn btn-sm btn-dark"><i class="fa fa-eye" aria-hidden="true"></i></a> --}}
-                                            <a href="{{ route('applications.edit', $a->id) }}"
-                                                class="btn btn-sm btn-primary"><i class="fa fa-pencil-alt"
-                                                    aria-hidden="true"></i></a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"
-                                                    aria-hidden="true"></i></button>
-                                        </form>
+                                        <form onsubmit="return confirm('Apakah Anda Yakin Ingin Menghapus Permanen ?');"
+                                        action="" method="POST">
+                                        {{-- {{ route('applications.deletepermanently', $a->id) }}" --}}
+                                        <a href="{{ route('applications.restore', $a->id) }}" class="btn btn-sm btn-success"><i class="fa fa-recycle" aria-hidden="true"></i></a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"
+                                                aria-hidden="true"></i></button>
+                                    </form>
                                     </td>
                                 </tr>
                             @endforeach

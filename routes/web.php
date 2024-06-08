@@ -30,7 +30,7 @@ Route::get('/', function () {
 });
 
 Route::get('/beranda', function () {
-    $jobs = Jobs::all(); // or however you retrieve the jobs
+    $jobs = Jobs::all();
     return view('seeker.layout.master', compact('jobs'));
 })->name('beranda');
 Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth'])->name('dashboard');
@@ -40,7 +40,10 @@ Route::middleware(['auth', 'company'])->group(function () {
     Route::resource('/company/jobs', JobsController::class);
     Route::get('/company/jobs-trash', [JobsController::class, 'trash'])->name('jobs.trash');
     Route::get('/company/jobs-restore/{id}', [JobsController::class, 'restore'])->name('jobs.restore');
+    Route::delete('/company/jobs-deletepermanently/{id}', [JobsController::class, 'deletepermanently'])->name('jobs.deletepermanently');
     Route::resource('applications', ApplicationsController::class);
+    Route::get('applications-trash', [ApplicationsController::class, 'trash'])->name('applications.trash');
+    Route::get('applications-restore/{id}', [ApplicationsController::class, 'restore'])->name('applications.restore');
     Route::resource('company-category', CategoriesController::class);
     Route::get('company-category-trash', [CategoriesController::class, 'trash'])->name('company-category.trash');
     Route::get('company-category-restore/{id}', [CategoriesController::class, 'restore'])->name('company-category.restore');

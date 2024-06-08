@@ -71,7 +71,7 @@
                                     <div class="info-box bg-light">
                                         <div class="info-box-content">
                                             <h5 class="info-box-number  text-muted">Detail Pekerjaan</h5>
-                                            <span class="info-box-text "> {{ $job->jobDescription }}</span>
+                                            <span > {{ $job->jobDescription }}</span>
                                         </div>
                                     </div>
 
@@ -81,7 +81,7 @@
                                         <div class="info-box-content">
                                             <h5 class="info-box-number  text-muted">Lokasi Pekerjaan</h5>
 
-                                            <span class="info-box-text "> <i class="fa fa-map-pin" aria-hidden="true"></i>
+                                            <span> <i class="fa fa-map-pin" aria-hidden="true"></i>
                                                 {{ $job->jobLocation }}</span>
                                         </div>
                                     </div>
