@@ -22,10 +22,6 @@
                 <form method="post" action="{{ route('profile.update') }}">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" value="{{ $user->name }}" id="username">
-                        </div>
-                        <div class="form-group">
                             <label for="exampleInputEmail1">Email </label>
                             <input type="email" class="form-control" id="exampleInputEmail1" value="{{ $user->email }}"
                                 placeholder="Enter email">
