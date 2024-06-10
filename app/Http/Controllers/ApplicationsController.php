@@ -7,6 +7,7 @@ use App\Models\Applications;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Jobs;
+use Illuminate\Support\Facades\Storage;
 
 class ApplicationsController extends Controller
 {
@@ -76,5 +77,25 @@ class ApplicationsController extends Controller
         $application = Applications::onlyTrashed()->where('id', $id);
         $application->restore();
         return redirect('/applications')->with(['success' => 'Data Berhasil Dipilihkan!']);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'jobs_id' => 'required|exists:jobs,id',
+            'seeker_id' => 'required|exists:seekers,id',
+            'cv' => 'required|mimes:pdf,doc,docx|max:2048'
+        ]);
+
+        $cvPath = $request->file('cv')->store('cvs', 'public');
+
+        Application::create([
+            'jobs_id' => $request->job_id,
+            'seeker_id' => $request->seeker_id,
+            'applicationDate' => now(),
+            'cv' => $cvPath
+        ]);
+
+        return redirect()->route('seeker.jobs.show', $request->job_id)->with('success', 'Application submitted successfully.');
     }
 }

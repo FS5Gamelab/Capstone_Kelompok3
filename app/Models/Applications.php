@@ -15,6 +15,7 @@ class Applications extends Model
         'seeker_id',
         'applicationDate',
         'status',
+        'cv'
     ];
 
     public function job()

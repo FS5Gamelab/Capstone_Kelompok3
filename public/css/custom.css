@@ -1,0 +1,85 @@
+/* public/css/custom.css */
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card-title {
+    color: #343a40;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+/* Ensure form controls are spaced properly */
+.form-control, .form-select {
+    margin-bottom: 10px;
+}
+
+/* Adjust padding and margin for form labels */
+.form-label {
+    margin-bottom: 5px;
+}
+
+/* Flexbox layout for the filter form */
+.filter-form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.filter-form .form-group label {
+    margin-bottom: 0.5rem;
+}
+
+.filter-form .form-group input,
+.filter-form .form-group select {
+    flex: 1;
+}
+
+.filter-form .form-group.buttons {
+    display: flex;
+    align-items: flex-end;
+    margin-top: 1rem;
+}
+
+.filter-form .form-group.buttons button,
+.filter-form .form-group.buttons a {
+    width: 100%;
+    margin-right: 0.5rem;
+}
+
+.filter-form .form-group.buttons a {
+    margin-right: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .filter-form .form-group {
+        margin-bottom: 0.5rem;
+    }
+
+    .filter-form .form-group.buttons {
+        flex-direction: column;
+    }
+
+    .filter-form .form-group.buttons button,
+    .filter-form .form-group.buttons a {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+}

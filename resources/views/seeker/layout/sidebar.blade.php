@@ -16,6 +16,9 @@
         <div class="info">
           <a href="#" class="d-block">Menu User</a>
         </div>
+        <div class="info">
+          <a href="{{ route('seeker.jobs.index') }}" class="d-block">Jobs</a>
+        </div>
       </div>
 
       <!-- SidebarSearch Form -->

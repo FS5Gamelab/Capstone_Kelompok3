@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('seeker_id')->nullable();
             $table->date('applicationDate');
             $table->enum('status',['pending', 'accepted','rejected','in review'])->default('pending');
+            $table->string('cv')->nullable();
             $table->foreign('job_id')->references('id')->on('jobs');
             $table->foreign('seeker_id')->references('id')->on('seekers');
             $table->softDeletes();

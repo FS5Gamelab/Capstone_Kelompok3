@@ -89,6 +89,7 @@
             margin-bottom: 1rem;
         }
     </style>
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
