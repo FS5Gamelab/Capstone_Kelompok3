@@ -60,9 +60,9 @@ Route::middleware('auth')->group(function () {
     })->name('seeker.home');
     Route::get('/seeker/applied_jobs', [SeekersController::class, 'appliedJobs'])->name('seeker.applied_jobs');
     Route::get('/profile', 'ProfileController@show')->name('profile.show');
-    Route::get('/jobs', [JobController::class, 'index'])->name('seeker.jobs.index');
-    Route::get('/jobs/{id}', [JobController::class, 'show'])->name('seeker.jobs.show');
-    Route::post('/applications', [ApplicationsController::class, 'store'])->name('seeker.applications.store');
+    Route::get('/seeker/jobs', [JobController::class, 'index'])->name('seeker.jobs.index');
+    Route::get('/seeker/jobs/{id}', [JobController::class, 'show'])->name('seeker.jobs.show');
+    Route::post('/seeker/applications', [ApplicationsController::class, 'store'])->name('seeker.applications.store');
 
 
 });
