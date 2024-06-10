@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('seeker.layout.app')
 
 @section('content')
     <div class="row">
