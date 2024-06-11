@@ -11,7 +11,7 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item my-auto">
-                Selamat Datang {{ Auth::user()->name }}
+               
              </li>
             
 
