@@ -47,7 +47,7 @@
                         <p class="card-text"><strong>Salary:</strong> {{ $job->salary }}</p>
                         <p class="card-text"><strong>Status:</strong> {{ ucfirst($job->jobStatus) }}</p>
                         <p class="card-text"><strong>Posted on:</strong> {{ $job->postedDate }}</p>
-                        <a href="{{ route('jobs.show', $job->id) }}" class="btn btn-primary mt-3">View Details</a>
+                        <a href="{{ route('seeker.jobs.show', $job->id) }}" class="btn btn-primary mt-3">View Details</a>
                     </div>
                 </div>
             </div>

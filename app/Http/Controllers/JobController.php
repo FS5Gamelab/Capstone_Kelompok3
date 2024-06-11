@@ -10,10 +10,8 @@ use Illuminate\Http\Request;
 class JobController extends Controller
 {
     public function index(Request $request)
-    {
-        $query = Jobs::query();
-
-        $query = Jobs::query();
+    { 
+        $query = Job::where('jobStatus', 'buka');
 
         // Apply filters
         if ($request->has('categories') && $request->categories != '') {
