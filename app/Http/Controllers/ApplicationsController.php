@@ -89,7 +89,7 @@ class ApplicationsController extends Controller
 
         $cvPath = $request->file('cv')->store('cvs', 'public');
 
-        Application::create([
+        Applications::create([
             'jobs_id' => $request->job_id,
             'seeker_id' => $request->seeker_id,
             'applicationDate' => now(),

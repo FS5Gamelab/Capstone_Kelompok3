@@ -63,8 +63,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/seeker/jobs', [JobController::class, 'index'])->name('seeker.jobs.index');
     Route::get('/seeker/jobs/{id}', [JobController::class, 'show'])->name('seeker.jobs.show');
     Route::post('/seeker/applications', [ApplicationsController::class, 'store'])->name('seeker.applications.store');
-
-
+    // route untuk user profile
+    Route::get('/seeker/profile/{seekerId}', [SeekersController::class, 'showProfile'])->name('seeker.profile.show');
+    Route::put('/seeker/profile/{seekerId}', [SeekersController::class, 'updateProfile'])->name('seeker.profile.update');
 });
 
 require __DIR__.'/auth.php';

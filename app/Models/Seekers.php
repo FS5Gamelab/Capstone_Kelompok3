@@ -14,4 +14,21 @@ class Seekers extends Model
     {
         return $this->hasMany(Applications::class);
     }
+
+    protected $table = 'seekers';
+
+    protected $fillable = [
+        'user_id',
+        'fullName',
+        'address',
+        'phone',
+        'skills',
+        'resume',
+        'profile',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

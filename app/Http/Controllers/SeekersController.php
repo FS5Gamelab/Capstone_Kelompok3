@@ -15,7 +15,7 @@ class SeekersController extends Controller
      */
     public function index()
     {
- 
+
     }
 
     public function logout(Request $request)
@@ -28,7 +28,7 @@ class SeekersController extends Controller
         return redirect('/login');
     }
     public function appliedJobs()
-    { 
+    {
         $seekerId = Auth::id();
         $applications = Applications::where('seeker_id', $seekerId)->with('job')->get();
         return view('seeker.applied_jobs', compact('applications'));
@@ -52,9 +52,10 @@ class SeekersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Seekers $seekers)
+    public function showProfile($seekerId)
     {
-        //
+        $profile = Seekers::where('user_id', $seekerId)->first();
+        return view('seeker.profile', compact('profile'));
     }
 
     /**
@@ -68,9 +69,11 @@ class SeekersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Seekers $seekers)
+    public function updateProfile(Request $request, $seekerId)
     {
-        //
+        $profile = Seekers::where('user_id', $seekerId)->first();
+        $profile->update($request->only(['fullName', 'address', 'phone', 'skills', 'resume', 'profile']));
+        return redirect()->back()->with('success', 'Profile updated successfully');
     }
 
     /**
@@ -79,6 +82,6 @@ class SeekersController extends Controller
     public function destroy(Seekers $seekers)
     {
         //
-    // 
+    //
     }
 }
