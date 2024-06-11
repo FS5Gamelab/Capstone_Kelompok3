@@ -27,11 +27,11 @@
             margin-right: 0.5rem;
         }
         .header {
-            background: url('https://source.unsplash.com/1600x900/?job') no-repeat center center;
-            background-size: cover;
-            color: white;
-            position: relative;
-        }
+    background: url('https://img.freepik.com/free-photo/top-view-hands-typing-laptop_23-2148792017.jpg?w=1380&t=st=1686238397~exp=1686238997~hmac=f3cb5c62b1f9da4a6f5276f67f5f4f4f90a91de645dd7edcbd438ec04b4d517a') no-repeat center center;
+    background-size: cover;
+    color: white;
+    position: relative;
+}
         .header::before {
             content: "";
             position: absolute;
@@ -108,7 +108,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('seeker.jobs.index') }}">
                         <i class="fas fa-search"></i> Cari Pekerjaan
                     </a>
                 </li>

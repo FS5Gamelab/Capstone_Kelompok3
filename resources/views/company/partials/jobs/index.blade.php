@@ -31,7 +31,7 @@
                                 <th width="8%" class="text-center">Status Pekerjaan</th>
                                 <th width="8%" class="text-center" >Jumlah Pelamar</th>
                                 <th class="text-center">Gaji</th>
-                                <th width="12%" class="text-center">Action</th>
+                                <th width="15%" class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>

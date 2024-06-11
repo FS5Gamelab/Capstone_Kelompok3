@@ -27,11 +27,11 @@
             margin-right: 0.5rem;
         }
         .header {
-            background: url('https://source.unsplash.com/1600x900/?job') no-repeat center center;
-            background-size: cover;
-            color: white;
-            position: relative;
-        }
+    background: url('https://img.freepik.com/free-photo/top-view-hands-typing-laptop_23-2148792017.jpg?w=1380&t=st=1686238397~exp=1686238997~hmac=f3cb5c62b1f9da4a6f5276f67f5f4f4f90a91de645dd7edcbd438ec04b4d517a') no-repeat center center;
+    background-size: cover;
+    color: white;
+    position: relative;
+}
         .header::before {
             content: "";
             position: absolute;
@@ -107,7 +107,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route('seeker.jobs.index') }}">
                             <i class="fas fa-search"></i> Cari Pekerjaan
                         </a>
                     </li>
@@ -135,7 +135,7 @@
         <div class="container">
             <h1>Selamat Datang di JobFinder</h1>
             <p class="lead">Temukan pekerjaan impian Anda dengan mudah</p>
-            <a href="#" class="btn btn-light btn-lg"><i class="fas fa-search"></i> Mulai Mencari</a>
+            <a href="{{ route('seeker.jobs.index') }}" class="btn btn-light btn-lg"><i class="fas fa-search"></i> Mulai Mencari</a>
         </div>
     </header>
 
@@ -162,48 +162,49 @@
     </section>
 
     <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-4">Kategori Pencarian Kerja yang Paling Dicari</h2>
-            <div class="row">
-                <div class="col-12 col-sm-6 col-lg-3 mb-3" data-aos="zoom-in">
-                    <div class="card">
-                        <img src="https://source.unsplash.com/400x300/?technology" class="card-img-top img-fluid" alt="Teknologi Informasi">
-                        <div class="card-body text-center">
-                            <i class="fas fa-laptop-code fa-3x mb-3"></i>
-                            <h4 class="card-title">Teknologi Informasi</h4>
-                        </div>
+    <div class="container">
+        <h2 class="text-center mb-4">Kategori Pencarian Kerja yang Paling Dicari</h2>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-lg-3 mb-3" data-aos="zoom-in">
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/3560168/pexels-photo-3560168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300&w=400" class="card-img-top img-fluid" alt="Teknologi Informasi">
+                    <div class="card-body text-center">
+                        <i class="fas fa-laptop-code fa-3x mb-3"></i>
+                        <h4 class="card-title">Teknologi Informasi</h4>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3 mb-3" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="card">
-                        <img src="https://source.unsplash.com/400x300/?health" class="card-img-top img-fluid" alt="Kesehatan">
-                        <div class="card-body text-center">
-                            <i class="fas fa-stethoscope fa-3x mb-3"></i>
-                            <h4 class="card-title">Kesehatan</h4>
-                        </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-3" data-aos="zoom-in" data-aos-delay="100">
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300&w=400" class="card-img-top img-fluid" alt="Kesehatan">
+                    <div class="card-body text-center">
+                        <i class="fas fa-stethoscope fa-3x mb-3"></i>
+                        <h4 class="card-title">Kesehatan</h4>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3 mb-3" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="card">
-                        <img src="https://source.unsplash.com/400x300/?finance" class="card-img-top img-fluid" alt="Keuangan">
-                        <div class="card-body text-center">
-                            <i class="fas fa-chart-line fa-3x mb-3"></i>
-                            <h4 class="card-title">Keuangan</h4>
-                        </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-3" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/210607/pexels-photo-210607.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300&w=400" class="card-img-top img-fluid" alt="Keuangan">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chart-line fa-3x mb-3"></i>
+                        <h4 class="card-title">Keuangan</h4>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3 mb-3" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="card">
-                        <img src="https://source.unsplash.com/400x300/?manufacturing" class="card-img-top img-fluid" alt="Manufaktur">
-                        <div class="card-body text-center">
-                            <i class="fas fa-building fa-3x mb-3"></i>
-                            <h4 class="card-title">Manufaktur</h4>
-                        </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-3" data-aos="zoom-in" data-aos-delay="300">
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/236907/pexels-photo-236907.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300&w=400" class="card-img-top img-fluid" alt="Manufaktur">
+                    <div class="card-body text-center">
+                        <i class="fas fa-building fa-3x mb-3"></i>
+                        <h4 class="card-title">Manufaktur</h4>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <section class="py-5">
         <div class="container">
