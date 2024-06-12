@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Jobs;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Seekers;
 
 class ApplicationsController extends Controller
 {
@@ -81,21 +82,24 @@ class ApplicationsController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'jobs_id' => 'required|exists:jobs,id',
-            'seeker_id' => 'required|exists:seekers,id',
-            'cv' => 'required|mimes:pdf,doc,docx|max:2048'
-        ]);
+     $request->validate([
+        'job_id' => 'required|exists:jobs,id',
+        'cv' => 'required|mimes:pdf,doc,docx|max:2048',
+    ]);
 
-        $cvPath = $request->file('cv')->store('cvs', 'public');
+    $fileName = time() . '.' . $request->cv->extension();  
+    $request->cv->move(public_path('storage'), $fileName);
 
-        Applications::create([
-            'jobs_id' => $request->job_id,
-            'seeker_id' => $request->seeker_id,
-            'applicationDate' => now(),
-            'cv' => $cvPath
-        ]);
+    $seeker = Seeker::where('user_id', Auth::id())->firstOrFail();
 
-        return redirect()->route('seeker.jobs.show', $request->job_id)->with('success', 'Application submitted successfully.');
-    }
+    Applications::create([
+        'job_id' => $request->job_id,
+        'seeker_id' => $seeker->id,
+        'applicationDate' => now(),
+        'status' => 'pending',
+        'cv' => $fileName,
+    ]);
+
+    return back()->with('success', 'Application submitted successfully.');
+}
 }
