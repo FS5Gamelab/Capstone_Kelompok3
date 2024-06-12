@@ -14,7 +14,10 @@ class DashboardController extends Controller
         if (Auth::check()) {
             $role = Auth::user()->role;
             if ($role == 'company') {
-                return view('company.partials.dashboard',['title' => 'Dashboard']);
+                return view('company.partials.dashboard',[
+                    'title' => 'Dashboard',
+                    'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
+                ]);
             } elseif ($role == 'user') {
                 $jobs = Jobs::all(); // Retrieve all jobs from the database
                 return view('seeker.layout.master', compact('jobs'));

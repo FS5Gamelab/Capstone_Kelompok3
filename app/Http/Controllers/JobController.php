@@ -11,7 +11,7 @@ class JobController extends Controller
 {
     public function index(Request $request)
     { 
-        $query = Job::where('jobStatus', 'buka');
+        $query = Jobs::where('jobStatus', 'buka');
 
         // Apply filters
         if ($request->has('categories') && $request->categories != '') {

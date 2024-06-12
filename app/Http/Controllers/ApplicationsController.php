@@ -22,7 +22,9 @@ class ApplicationsController extends Controller
         })->get();
         return view('company.partials.applications.index', [
             'applications' => $applications,
-            'title' => 'Application'
+            'title' => 'Application',
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
+
         ]);
     }
 
@@ -31,7 +33,8 @@ class ApplicationsController extends Controller
         session(['previous_url' => url()->previous()]);
         return view('company.partials.applications.edit', [
             'application' => Applications::findOrFail($id),
-            'title' => 'Application'
+            'title' => 'Application',
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
         ]);
     }
 
@@ -69,7 +72,8 @@ class ApplicationsController extends Controller
             })->get();
         return view('company.partials.applications.trash', [
             'trashedApplications' => $trashedApplications,
-            'title' => 'Application'
+            'title' => 'Application',
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
         ]);
     }
 
@@ -82,24 +86,24 @@ class ApplicationsController extends Controller
 
     public function store(Request $request)
     {
-     $request->validate([
-        'job_id' => 'required|exists:jobs,id',
-        'cv' => 'required|mimes:pdf,doc,docx|max:2048',
-    ]);
+        $request->validate([
+            'job_id' => 'required|exists:jobs,id',
+            'cv' => 'required|mimes:pdf,doc,docx|max:2048',
+        ]);
 
-    $fileName = time() . '.' . $request->cv->extension();  
-    $request->cv->move(public_path('storage'), $fileName);
+        $fileName = time() . '.' . $request->cv->extension();
+        $request->cv->move(public_path('storage'), $fileName);
 
-    $seeker = Seeker::where('user_id', Auth::id())->firstOrFail();
+        $seeker = Seekers::where('user_id', Auth::id())->firstOrFail();
 
-    Applications::create([
-        'job_id' => $request->job_id,
-        'seeker_id' => $seeker->id,
-        'applicationDate' => now(),
-        'status' => 'pending',
-        'cv' => $fileName,
-    ]);
+        Applications::create([
+            'job_id' => $request->job_id,
+            'seeker_id' => $seeker->id,
+            'applicationDate' => now(),
+            'status' => 'pending',
+            'cv' => $fileName,
+        ]);
 
-    return back()->with('success', 'Application submitted successfully.');
-}
+        return back()->with('success', 'Application submitted successfully.');
+    }
 }

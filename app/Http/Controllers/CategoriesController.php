@@ -4,22 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Categories;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriesController extends Controller
 {
-    
+
     public function index()
     {
         $categories = Categories::all();
         return view('company.partials.categories.index', [
             'categories' => $categories,
-             'title' => 'Kategori'
+            'title' => 'Kategori',
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
         ]);
     }
 
     public function create()
     {
-        return view('company.partials.categories.create',['title' => 'Kategori']);
+        return view('company.partials.categories.create', ['title' => 'Kategori']);
     }
 
     public function store(Request $request)
@@ -41,7 +44,8 @@ class CategoriesController extends Controller
     {
         return view('company.partials.categories.edit', [
             'category' => Categories::findOrFail($id),
-            'title' => 'Kategori'
+            'title' => 'Kategori',
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
         ]);
     }
 
@@ -70,7 +74,11 @@ class CategoriesController extends Controller
     public function trash()
     {
         $categories = Categories::onlyTrashed()->get();
-        return view('company.partials.categories.trash', ['categories' => $categories,'title' => 'Kategori']);
+        return view('company.partials.categories.trash', [
+            'categories' => $categories,
+            'title' => 'Kategori',
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
+        ]);
     }
 
     public function restore($id)
@@ -79,11 +87,4 @@ class CategoriesController extends Controller
         $category->restore();
         return redirect('/company-category')->with(['success' => 'Data Berhasil Dipulihkan!']);
     }
-
-    // public function deletepermanently($id)
-    // {
-    //     $category = Categories::onlyTrashed()->where('id', $id);
-    //     $category->forceDelete();
-    //     return redirect('/company-category')->with(['success' => 'Data Dihapus Permanen']);
-    // }
 }

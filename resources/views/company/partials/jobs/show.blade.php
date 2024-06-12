@@ -114,7 +114,7 @@
                                 <th class="text-center">Resume Pelamar</th>
                                 <th class="text-center">Alamat Pelamar</th>
                                 <th class="text-center">Status</th>
-                                <th class="text-center">Action</th>
+                                <th width="15%" class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -152,8 +152,7 @@
                                     <td>
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                             action="{{ route('applications.destroy', $application->id) }}" method="POST">
-                                            <a href="{{ route('applications.show', $application->id) }}"
-                                                class="btn btn-sm btn-dark"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                           
                                             <a href="{{ route('applications.edit', $application->id) }}"
                                                 class="btn btn-sm btn-primary"><i class="fa fa-pencil-alt"
                                                     aria-hidden="true"></i></a>

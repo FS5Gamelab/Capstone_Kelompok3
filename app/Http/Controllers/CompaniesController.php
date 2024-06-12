@@ -17,7 +17,8 @@ class CompaniesController extends Controller
         return view('company.partials.profile', [
             'user'=> $user,
             'company' => $company,
-            'title' => 'Company Profile'
+            'title' => 'Company Profile',
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
             
         ]);
     }

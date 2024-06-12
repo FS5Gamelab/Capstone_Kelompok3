@@ -26,18 +26,24 @@ class JobsController extends Controller
         return view('company.partials.jobs.index', [
             'jobs' => $jobs,
             'jml_application' => $Jmlapplications,
-            'title' => 'Jobs'
-
+            'title' => 'Jobs',
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
         ]);
     }
 
     public function create()
     {
-        $categories = Categories::all();
-        return view('company.partials.jobs.create', [
-            'categories' => $categories,
-            'title' => 'Jobs'
-        ]);
+        $company_name = User::findOrFail(Auth::user()->id)->companies->companyName;
+        if ($company_name == '') {
+            return redirect('/company/jobs')->with('danger', 'Silahkan Lengkapi Data Profile Perusahaan Terlebih Dahulu');
+        } else {
+            $categories = Categories::all();
+            return view('company.partials.jobs.create', [
+                'categories' => $categories,
+                'title' => 'Jobs',
+                'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
+            ]);
+        }
     }
 
     public function store(Request $request)
@@ -73,10 +79,12 @@ class JobsController extends Controller
         $applications = Applications::whereHas('job', function ($query) use ($company_id, $job) {
             $query->where('company_id', $company_id)->where('job_id', $job->id);
         })->get();
-        return view('company.partials.jobs.show',[
+        return view(
+            'company.partials.jobs.show',[
                 'job' => $job,
                 'applications' => $applications,
-                'title' => 'Jobs'
+                'title' => 'Jobs',
+                'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
             ]
         );
     }
@@ -87,7 +95,8 @@ class JobsController extends Controller
         return view('company.partials.jobs.edit', [
             'jobs' => Jobs::findOrFail($id),
             'categories' => $categories,
-             'title' => 'Jobs'
+            'title' => 'Jobs',
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
         ]);
     }
 
@@ -129,7 +138,11 @@ class JobsController extends Controller
     {
 
         $jobs = Jobs::onlyTrashed()->get();
-        return view('company.partials.jobs.trash', ['jobs' => $jobs, 'title' => 'Jobs']);
+        return view('company.partials.jobs.trash', [
+            'jobs' => $jobs,
+             'title' => 'Jobs',
+             'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
+        ]);
     }
 
     public function restore($id)
@@ -138,11 +151,4 @@ class JobsController extends Controller
         $jobs->restore();
         return redirect('/company/jobs')->with(['success' => 'Data Berhasil Dipilihkan!']);
     }
-
-    // public function deletepermanently($id)
-    // {
-    //     $category = Jobs::onlyTrashed()->where('id', $id);
-    //     $category->forceDelete();
-    //     return redirect('/company/jobs')->with(['success' => 'Data Dihapus Permanen']);
-    // }
 }
