@@ -28,7 +28,7 @@ class Jobs extends Model
 
     public function company()
     {
-        return $this->belongsTo(Companies::class);
+        return $this->belongsTo(Companies::class,'company_id');
     }
 
     public function applications()

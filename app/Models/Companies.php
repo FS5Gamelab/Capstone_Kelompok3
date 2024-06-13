@@ -20,6 +20,6 @@ class Companies extends Model
 
     public function jobs()
     {
-        return $this->hasMany(Jobs::class);
+        return $this->hasMany(Jobs::class,'company_id');
     }
 }

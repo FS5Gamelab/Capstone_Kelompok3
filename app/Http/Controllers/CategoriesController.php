@@ -22,7 +22,10 @@ class CategoriesController extends Controller
 
     public function create()
     {
-        return view('company.partials.categories.create', ['title' => 'Kategori']);
+        return view('company.partials.categories.create', [
+            'title' => 'Kategori',
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
+        ]);
     }
 
     public function store(Request $request)

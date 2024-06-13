@@ -6,6 +6,12 @@
             <h5><i class="icon fas fa-check"></i>{{ $message }}</h5>
         </div>
     @endif
+    @if ($message = Session::get('status'))
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h5><i class="icon fas fa-check"></i>{{ $message }}</h5>
+        </div>
+    @endif
     @if ($message = Session::get('error'))
         <div class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -19,20 +25,30 @@
                 <div class="card-header">
                     <h3 class="card-title">Account</h3>
                 </div>
-                <form method="post" action="{{ route('profile.update') }}">
+                <form method="post" action="{{ route('password.update') }}">
+                    @csrf
+                    @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email </label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" value="{{ $user->email }}"
-                                placeholder="Enter email">
+                            <label for="email">Email </label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                                name="email" value="{{ $user->email }}" placeholder="Enter email">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                                placeholder="Password">
+
                         </div>
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         <div class="form-group">
                             <label for="exampleInputPassword2">Repeat Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                            <input type="password" class="form-control" id="exampleInputPassword2"
+                                name="password_confirmation" placeholder="Corfirm Password">
                         </div>
                     </div>
                     <div class="card-footer">
