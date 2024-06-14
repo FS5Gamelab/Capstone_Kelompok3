@@ -31,7 +31,7 @@
                             @endif
                             <form action="{{ route('seeker.applications.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="job_id" value="{{ $job->id }}">
+                                <input type="hidden" name="job_id" value="{{ $jobs->id }}">
 
                                 <div class="mb-3">
                                     <label for="cv" class="form-label">Upload CV:</label>
@@ -49,7 +49,7 @@
                     <div class="card-body">
                         <h2 class="card-title">Applications</h2>
                         <ul class="list-group">
-                            @foreach ($job->applications as $application)
+                            @foreach ($jobs->applications as $application)
                                 <li class="list-group-item">
                                     <p><strong>Applicant:</strong> {{ $application->seeker->name }}</p>
                                     <p><strong>Status:</strong> {{ ucfirst($application->status) }}</p>
