@@ -29,7 +29,7 @@
             </div>
 
             <div class="profile-info">
-                <label for="resume">Upload Resume (CV):</label>
+                <label for="resume">Upload Resume:</label>
                 <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
             </div>
 
