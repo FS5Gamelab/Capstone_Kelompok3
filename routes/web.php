@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AppliedJobsController;
 use App\Http\Controllers\ApplicationsController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\DashboardController;
@@ -62,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', 'ProfileController@show')->name('profile.show');
     Route::get('/seeker/jobs', [JobController::class, 'index'])->name('seeker.jobs.index');
     Route::get('/seeker/jobs/{id}', [JobController::class, 'show'])->name('seeker.jobs.show');
-    Route::post('/seeker/applications', [ApplicationsController::class, 'store'])->name('seeker.applications.store');
+    Route::post('/seeker/applications', [ApplicationController::class, 'store'])->name('seeker.applications.store');
     // route untuk user profile
     Route::get('/seeker/profile/{seekerId}', [SeekersController::class, 'showProfile'])->name('seeker.profile.show');
     Route::put('/seeker/profile/{seekerId}', [SeekersController::class, 'updateProfile'])->name('seeker.profile.update');
