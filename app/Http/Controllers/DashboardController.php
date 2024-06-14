@@ -29,6 +29,11 @@ class DashboardController extends Controller
                     return view('company.partials.dashboard', [
                         'title' => 'Dashboard',
                         'perusahaan' => $perusahaan,
+                        'jumlah_jobs' => $jumlah_jobs,
+                        'jumlah_seekers' => $jumlah_seekers,
+                        'jumlah_diterima' => $jumlah_diterima,
+                        'jumlah_ditolak' => $jumlah_ditolak,
+                        'jumlah_pending' => $jumlah_pending,
                         'peringatan' => 'Silahkan Lengkapi Profil Perusahaan Anda!'
                     ]);
                 } else {

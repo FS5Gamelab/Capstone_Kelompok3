@@ -113,7 +113,7 @@
                                 <th class="text-center">Skill Pelamar</th>
                                 <th class="text-center">Resume Pelamar</th>
                                 <th class="text-center">Alamat Pelamar</th>
-                                <th class="text-center">Status</th>
+                                <th width="12%" class="text-center">Status</th>
                                 <th width="15%" class="text-center">Action</th>
                             </tr>
                         </thead>
