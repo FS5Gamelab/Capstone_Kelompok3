@@ -24,6 +24,7 @@ class DashboardController extends Controller
                 $jobIds = $company->jobs->pluck('id');
                 $jumlah_diterima = Applications::whereIn('job_id', $jobIds)->where('status', 'accepted')->count();
                 $jumlah_ditolak = Applications::whereIn('job_id', $jobIds)->where('status', 'rejected')->count();
+                $jumlah_pending = Applications::whereIn('job_id', $jobIds)->where('status', 'pending')->count();
                 if ($perusahaan == '') {
                     return view('company.partials.dashboard', [
                         'title' => 'Dashboard',
@@ -38,6 +39,7 @@ class DashboardController extends Controller
                         'jumlah_seekers' => $jumlah_seekers,
                         'jumlah_diterima' => $jumlah_diterima,
                         'jumlah_ditolak' => $jumlah_ditolak,
+                        'jumlah_pending' => $jumlah_pending,
                         'peringatan' => null
                     ]);
                 }

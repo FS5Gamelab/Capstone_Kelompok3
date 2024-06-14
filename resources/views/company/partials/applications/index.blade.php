@@ -30,7 +30,7 @@
                                 <th class="text-center">Skills</th>
                                 <th class="text-center">Resume</th>
                                 <th class="text-center">Alamat</th>
-                                <th class="text-center">Status</th>
+                                <th width="12%" class="text-center">Status</th>
                                 <th width="12%" class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -46,7 +46,7 @@
                                     <td class="text-center">
                                         {{ $a->seeker->skills }}
                                     </td>
-                                    <td class="text-center"> {{ $a->seeker->resume }} </td>
+                                    <td class="text-center"> <textarea style="width: 100%; background: transparent; border: none;"  cols="30" rows="4" readonly>{{ $a->seeker->resume }} </textarea></td>
                                     <td> {{ $a->seeker->address }} </td>
                                     <td>
                                         @if ($a->status == 'pending')

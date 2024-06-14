@@ -33,26 +33,30 @@
                             <label for="email">Email </label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                                 name="email" value="{{ $user->email }}" placeholder="Enter email">
+                                @error('email')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" class="form-control" id="exampleInputPassword1" name="password"
                                 placeholder="Password">
-
+                                @error('password')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                         </div>
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                     
                         <div class="form-group">
                             <label for="exampleInputPassword2">Repeat Password</label>
                             <input type="password" class="form-control" id="exampleInputPassword2"
                                 name="password_confirmation" placeholder="Corfirm Password">
+                                @error('password_confirmation')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Change Password</button>
                     </div>
                 </form>
             </div>
