@@ -20,11 +20,11 @@ class Applications extends Model
 
     public function job()
     {
-        return $this->belongsTo(Jobs::class);
+        return $this->belongsTo(Jobs::class, 'job_id');
     }
 
     public function seeker()
     {
-        return $this->belongsTo(Seekers::class);
+        return $this->belongsTo(Seekers::class, 'seeker_id');
     }
 }
