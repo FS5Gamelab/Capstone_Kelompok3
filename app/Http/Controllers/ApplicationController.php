@@ -34,6 +34,6 @@ class ApplicationController extends Controller
             'cv' => $filePath,
         ]);
 
-        return back()->with('success', 'Application submitted successfully.');
+        return redirect()->route('seeker.jobs.show', ['id' => $request->job_id])->with('success', 'Application submitted successfully.');
     }
 }
