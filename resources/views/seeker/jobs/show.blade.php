@@ -31,7 +31,7 @@
                             @endif
                             <form action="{{ route('seeker.applications.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="job_id" value="{{ $jobs->id }}">
+                                <input type="hidden" name="job_id" value="{{ $job->id }}">
 
                                 <div class="mb-3">
                                     <label for="cv" class="form-label">Upload CV:</label>
