@@ -55,7 +55,8 @@ class SeekersController extends Controller
     public function showProfile($seekerId)
     {
         $profile = Seekers::where('user_id', $seekerId)->first();
-        return view('seeker.profile', compact('profile'));
+        $user = Auth::user();
+        return view('seeker.profile', compact('profile', 'user'));
     }
 
     /**
@@ -71,11 +72,24 @@ class SeekersController extends Controller
      */
     public function updateProfile(Request $request, $seekerId)
     {
-        $profile = Seekers::where('user_id', $seekerId)->first();
-        $profile->update($request->only(['fullName', 'address', 'phone', 'skills', 'resume', 'profile']));
+        $validatedData = $request->validate([
+            'fullName' => 'required|string',
+            'address' => 'required|string',
+            'phone' => 'required|string',
+            'skills' => 'required|string',
+            'resume' => 'required|string',
+            'profile' => 'required|string',
+        ]);
+
+        // Find the profile or create a new one
+        $profile = Seekers::firstOrNew(['user_id' => $seekerId]);
+
+        // Update the profile with validated data
+        $profile->fill($validatedData);
+        $profile->save();
+
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
-
     /**
      * Remove the specified resource from storage.
      */

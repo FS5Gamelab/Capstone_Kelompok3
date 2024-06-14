@@ -43,6 +43,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            $user->seeker()->create([]);
+        });
+    }
     public function companies()
     {
         return $this->hasOne(Companies::class);
@@ -50,6 +58,6 @@ class User extends Authenticatable
 
     public function seeker()
     {
-    return $this->hasOne(Seekers::class, 'user_id');
+        return $this->hasOne(Seekers::class);
     }
 }
