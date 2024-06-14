@@ -1,4 +1,5 @@
 @extends('company.main')
+
 @section('konten')
     @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible">
@@ -46,7 +47,16 @@
                                     <td class="text-center">
                                         {{ $a->seeker->skills }}
                                     </td>
-                                    <td class="text-center"> <textarea style="width: 100%; background: transparent; border: none;"  cols="30" rows="4" readonly>{{ $a->seeker->resume }} </textarea></td>
+                                    <td class="text-center">
+                                        @if ($a->seeker->resume)
+                                            <textarea style="width: 100%; background: transparent; border: none;" cols="30" rows="4" readonly>{{ asset('storage/' . $a->seeker->resume) }}</textarea>
+                                            <div class="mt-2">
+                                                <a href="{{ route('download.cv', ['id' => $a->seeker->id]) }}" class="btn btn-primary" download>Download CV</a>
+                                            </div>
+                                        @else
+                                            <p class="text-muted mt-2">No CV uploaded</p>
+                                        @endif
+                                    </td>
                                     <td> {{ $a->seeker->address }} </td>
                                     <td>
                                         @if ($a->status == 'pending')
@@ -70,8 +80,6 @@
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                             action="{{ route('applications.destroy', $a->id) }}" method="POST">
-                                            {{-- <a href="{{ route('applications.show', $a->id) }}"
-                                                class="btn btn-sm btn-dark"><i class="fa fa-eye" aria-hidden="true"></i></a> --}}
                                             <a href="{{ route('applications.edit', $a->id) }}"
                                                 class="btn btn-sm btn-primary"><i class="fa fa-pencil-alt"
                                                     aria-hidden="true"></i></a>
@@ -86,7 +94,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>

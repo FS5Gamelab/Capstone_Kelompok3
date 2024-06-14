@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applications;
-use App\Models\Jobs;
 use App\Models\Seekers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +12,7 @@ class ApplicationController extends Controller
 {
     public function store(Request $request)
     {
-       // Validasi input
+        // Validasi input
         $request->validate([
             'job_id' => 'required|exists:jobs,id',
             'cv' => 'required|mimes:pdf,doc,docx|max:2048',
@@ -34,6 +33,13 @@ class ApplicationController extends Controller
             'cv' => $filePath,
         ]);
 
-        return redirect()->route('seeker.jobs.show', ['id' => $request->job_id])->with('success', 'Application submitted successfully.');
+        return redirect()->route('seeker.jobs.index')->with('success', 'Application submitted successfully.');
+    }
+
+    public function appliedJobs()
+    {
+        $seekerId = Seekers::where('user_id', Auth::id())->first()->id;
+        $applications = Applications::where('seeker_id', $seekerId)->with('job')->get();
+        return view('seeker.applied_jobs', compact('applications'));
     }
 }

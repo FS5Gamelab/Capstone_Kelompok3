@@ -7,6 +7,7 @@ use App\Models\Jobs;
 use App\Models\Seekers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SeekersController extends Controller
 {
@@ -40,7 +41,13 @@ class SeekersController extends Controller
     {
         //
     }
-
+    public function downloadCV($id)
+    {
+        $seeker = Seekers::findOrFail($id);
+        $filePath = $seeker->resume; // Adjust as per your storage configuration
+    
+        return Storage::disk('public')->download($filePath);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -77,17 +84,29 @@ class SeekersController extends Controller
             'address' => 'required|string',
             'phone' => 'required|string',
             'skills' => 'required|string',
-            'resume' => 'required|string',
+            'resume' => 'nullable|mimes:pdf|max:2048', // Allow nullable to avoid required validation error if no new file uploaded
             'profile' => 'required|string',
         ]);
-
+    
         // Find the profile or create a new one
         $profile = Seekers::firstOrNew(['user_id' => $seekerId]);
-
-        // Update the profile with validated data
+    
+        // Handle file upload for resume (CV) if a new file is uploaded
+        if ($request->hasFile('resume')) {
+            // Store the file in storage/app/public/cvs (adjust this path as needed)
+            $filePath = $request->file('resume')->store('cvs', 'public');
+            // Delete old file if exists and save new file path
+            if ($profile->resume) {
+                Storage::disk('public')->delete($profile->resume);
+            }
+            // Set the resume path in the profile
+            $profile->resume = $filePath;
+        }
+    
+        // Update the profile with other validated data
         $profile->fill($validatedData);
         $profile->save();
-
+    
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
     /**

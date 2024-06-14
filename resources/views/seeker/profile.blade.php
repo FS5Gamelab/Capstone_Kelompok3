@@ -4,6 +4,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-5">
+            <!-- Account Update Section -->
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h3 class="card-title"><i class="bi bi-person-circle me-2"></i>Account</h3>
@@ -44,6 +45,7 @@
             </div>
         </div>
         <div class="col-md-7">
+            <!-- Seeker Profile Update Section -->
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h3 class="card-title"><i class="bi bi-person-fill me-2"></i>Seeker Profile</h3>
@@ -52,7 +54,7 @@
                     @if (session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
-                    <form action="{{ route('seeker.profile.update', ['seekerId' => auth()->user()->id]) }}" method="POST">
+                    <form action="{{ route('seeker.profile.update', ['seekerId' => auth()->user()->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group mb-3">
@@ -73,7 +75,13 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="resume"><i class="bi bi-file-earmark-text me-2"></i>Resume</label>
-                            <input type="text" class="form-control" id="resume" name="resume" value="{{ old('resume', $profile->resume ?? '') }}" required>
+                            <input type="file" class="form-control" id="resume" name="resume" accept=".pdf">
+                            @if ($profile->resume)
+                                <p>Current Resume: <a href="{{ asset('storage/' . $profile->resume) }}" target="_blank">{{ $profile->resume }}</a></p>
+                            @endif
+                            @error('resume')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="profile"><i class="bi bi-person-badge me-2"></i>Profile</label>

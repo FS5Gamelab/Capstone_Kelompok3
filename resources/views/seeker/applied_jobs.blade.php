@@ -1,9 +1,11 @@
-<!-- resources/views/seekers/applied_jobs.blade.php -->
 @extends('seeker.layout.app')
 
 @section('content')
 <div class="container mt-5">
-    <h2 class="mb-4">Jobs Applied</h2>
+    <h2 class="mb-4"><i class="bi bi-briefcase me-2"></i>Jobs Applied</h2>
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
     <table class="table table-bordered">
         <thead class="thead-light">
             <tr>
@@ -17,7 +19,19 @@
             <tr>
                 <td>{{ $application->job->jobTitle }}</td>
                 <td>{{ $application->applicationDate }}</td>
-                <td>{{ $application->status }}</td>
+                <td>
+                    @if ($application->status == 'pending')
+                        <span class="badge bg-warning text-dark">{{ $application->status }}</span>
+                    @elseif ($application->status == 'accepted')
+                        <span class="badge bg-success">{{ $application->status }}</span>
+                    @elseif ($application->status == 'rejected')
+                        <span class="badge bg-danger">{{ $application->status }}</span>
+                    @elseif ($application->status == 'in_review')
+                        <span class="badge bg-info">{{ $application->status }}</span>
+                    @else
+                        <span class="badge bg-secondary">{{ $application->status }}</span>
+                    @endif
+                </td>
             </tr>
             @endforeach
         </tbody>
