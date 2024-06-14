@@ -7,15 +7,15 @@
 
                 <div class="card my-4">
                     <div class="card-body">
-                        <h1 class="card-title">{{ $job->jobTitle }}</h1>
-                        <p class="card-text">{{ $job->jobDescription }}</p>
+                        <h1 class="card-title">{{ $jobs->jobTitle }}</h1>
+                        <p class="card-text">{{ $jobs->jobDescription }}</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Requirements:</strong> {{ $job->jobRequire }}</li>
-                            <li class="list-group-item"><strong>Location:</strong> {{ $job->jobLocation }}</li>
-                            <li class="list-group-item"><strong>Type:</strong> {{ $job->jobType }}</li>
-                            <li class="list-group-item"><strong>Salary:</strong> {{ 'Rp '.number_format($job->salary) }}</li>
-                            <li class="list-group-item"><strong>Status:</strong> {{ ucfirst($job->jobStatus) }}</li>
-                            <li class="list-group-item"><strong>Posted on:</strong> {{ $job->postedDate }}</li>
+                            <li class="list-group-item"><strong>Requirements:</strong> {{ $jobs->jobRequire }}</li>
+                            <li class="list-group-item"><strong>Location:</strong> {{ $jobs->jobLocation }}</li>
+                            <li class="list-group-item"><strong>Type:</strong> {{ $jobs->jobType }}</li>
+                            <li class="list-group-item"><strong>Salary:</strong> {{ 'Rp '.number_format($jobs->salary) }}</li>
+                            <li class="list-group-item"><strong>Status:</strong> {{ ucfirst($jobs->jobStatus) }}</li>
+                            <li class="list-group-item"><strong>Posted on:</strong> {{ $jobs->postedDate }}</li>
                         </ul>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                             @endif
                             <form action="{{ route('seeker.applications.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="job_id" value="{{ $job->id }}">
+                                <input type="hidden" name="job_id" value="{{ $jobs->id }}">
 
                                 <div class="mb-3">
                                     <label for="cv" class="form-label">Upload CV:</label>
