@@ -45,7 +45,7 @@ class SeekersController extends Controller
     {
         $seeker = Seekers::findOrFail($id);
         $filePath = $seeker->resume; // Adjust as per your storage configuration
-    
+
         return Storage::disk('public')->download($filePath);
     }
     /**
@@ -59,55 +59,62 @@ class SeekersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showProfile($seekerId)
+    public function show()
     {
-        $profile = Seekers::where('user_id', $seekerId)->first();
-        $user = Auth::user();
-        return view('seeker.profile', compact('profile', 'user'));
+        $seekers = Seekers::where('user_id', auth()->id())->firstOrFail();
+
+        return view('seeker.profile.show', compact('seeker'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Seekers $seekers)
+    public function edit()
     {
-        //
+        $seekers = Seekers::where('user_id', auth()->id())->firstOrFail();
+
+        return view('seeker.profile.edit', compact('seeker'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function updateProfile(Request $request, $seekerId)
+    public function update(Request $request)
     {
-        $validatedData = $request->validate([
-            'fullName' => 'required|string',
+        // Validasi data yang dikirim
+        $request->validate([
+            'fullName' => 'required|string|max:255',
             'address' => 'required|string',
-            'phone' => 'required|string',
+            'phone' => 'required|string|max:20',
             'skills' => 'required|string',
-            'resume' => 'nullable|mimes:pdf|max:2048', // Allow nullable to avoid required validation error if no new file uploaded
-            'profile' => 'required|string',
+            'resume' => 'nullable|mimes:pdf,doc,docx|max:2048', // optional, max 2MB
+            'profile' => 'nullable|image|max:2048', // optional, max 2MB
         ]);
-    
-        // Find the profile or create a new one
-        $profile = Seekers::firstOrNew(['user_id' => $seekerId]);
-    
-        // Handle file upload for resume (CV) if a new file is uploaded
+
+        // Simpan data ke dalam database
+        $seekers = Seekers::where('user_id', auth()->id())->firstOrFail(); // Mengasumsikan user_id ada dalam model Seeker
+
+        $seekers->fullName = $request->fullName;
+        $seekers->address = $request->address;
+        $seekers->phone = $request->phone;
+        $seekers->skills = $request->skills;
+
+        // Proses upload resume jika ada
         if ($request->hasFile('resume')) {
-            // Store the file in storage/app/public/cvs (adjust this path as needed)
-            $filePath = $request->file('resume')->store('cvs', 'public');
-            // Delete old file if exists and save new file path
-            if ($profile->resume) {
-                Storage::disk('public')->delete($profile->resume);
-            }
-            // Set the resume path in the profile
-            $profile->resume = $filePath;
+            $resumePath = $request->file('resume')->store('resumes');
+            $seekers->resume = $resumePath;
         }
-    
-        // Update the profile with other validated data
-        $profile->fill($validatedData);
-        $profile->save();
-    
-        return redirect()->back()->with('success', 'Profile updated successfully');
+
+        // Proses upload foto profil jika ada
+        if ($request->hasFile('profile')) {
+            $profilePath = $request->file('profile')->store('profiles');
+            $seekers->profile = $profilePath;
+        }
+
+        $seekers->save();
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('seeker.profile.show')->with('success', 'Profile updated successfully');
     }
     /**
      * Remove the specified resource from storage.
