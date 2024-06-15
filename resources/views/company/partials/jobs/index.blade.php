@@ -45,7 +45,8 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td >{{ $job->jobTitle }}</td>
-                                    <td >{{ $job->jobLocation }}</td>
+                                 
+                                    <td ><textarea rows="2" style="width: 100%; background: transparent; border: none;" readonly>{{ $job->jobLocation }}</textarea></td>
                                     <td class="text-center">
                                         @if ($job->jobType == 'wfh')
                                         <strong class="bg-secondary  px-2 rounded-pill">

@@ -29,7 +29,7 @@
                                 <th class="text-center">Nama Pelamar</th>
                                 <th class="text-center">No.Hp Pelamar</th>
                                 <th class="text-center">Skills</th>
-                                <th class="text-center">Resume</th>
+                                <th width="12%" class="text-center">CV</th>
                                 <th class="text-center">Alamat</th>
                                 <th width="12%" class="text-center">Status</th>
                                 <th width="12%" class="text-center">Action</th>
@@ -48,14 +48,9 @@
                                         {{ $a->seeker->skills }}
                                     </td>
                                     <td class="text-center">
-                                        @if ($a->seeker->resume)
-                                            <textarea style="width: 100%; background: transparent; border: none;" cols="30" rows="4" readonly>{{ asset('storage/' . $a->seeker->resume) }}</textarea>
-                                            <div class="mt-2">
-                                                <a href="{{ route('download.cv', ['id' => $a->seeker->id]) }}" class="btn btn-primary" download>Download CV</a>
-                                            </div>
-                                        @else
-                                            <p class="text-muted mt-2">No CV uploaded</p>
-                                        @endif
+                                        <a class="bg-secondary  px-2 rounded-pill"
+                                            href="{{ asset('storage/cvs/dMGOceyy66r9Q6lcsD7TnaN7E3MFWksUpRvaspPj.pdf') }}"
+                                            target="_blank">Buka PDF</a>
                                     </td>
                                     <td> {{ $a->seeker->address }} </td>
                                     <td>

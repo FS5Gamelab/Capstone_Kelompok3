@@ -111,8 +111,8 @@
                                 <th class="text-center">Nama Pelamar</th>
                                 <th class="text-center">No.Hp Pelamar</th>
                                 <th class="text-center">Skill Pelamar</th>
-                                <th class="text-center">Resume Pelamar</th>
                                 <th class="text-center">Alamat Pelamar</th>
+                                <th class="text-center">CV Pelamar</th>
                                 <th width="12%" class="text-center">Status</th>
                                 <th width="15%" class="text-center">Action</th>
                             </tr>
@@ -126,10 +126,11 @@
                                     <td class="text-center">
                                         {{ $application->seeker->skills }}
                                     </td>
-                                    <td class="text-center">
-                                        {{ $application->seeker->resume }}
-                                    </td>
+                                   
                                     <td class="text-center">{{ $application->seeker->address }}</td>
+                                    <td class="text-center">
+                                        <a class="bg-secondary  px-2 rounded-pill" href="{{ asset('storage/cvs/'.$application->cv) }}" target="_blank">Buka PDF</a>
+                                    </td>
                                     <td>
                                         @if($application->status == 'pending')
                                         <strong class="bg-warning  px-2 rounded-pill">

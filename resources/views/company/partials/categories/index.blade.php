@@ -36,7 +36,10 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $category->categoryName }}</td>
-                                    <td>{{ $category->categoryDescription }}</td>
+                                    
+                                    <td>
+                                        <textarea rows="4" style="width: 100%; background: transparent; border: none;" readonly>{{ $category->categoryDescription }}</textarea>
+                                    </td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                             action="{{ route('company-category.destroy', $category->id) }}" method="POST">

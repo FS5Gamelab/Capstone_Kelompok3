@@ -4,7 +4,7 @@
         <div class="col col-md-12">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Buka Lowongan Pekerjaan</h3>
+                    <h3 class="card-title">Edit Lamaran Pekerjaan</h3>
                     </ul>
                 </div>
                 <form method="POST" action="{{ route('applications.update', $application->id) }}"
@@ -55,6 +55,10 @@
                                 disabled>{{ old('seeker_resume', $application->seeker->resume) }}</textarea>
                         </div>
                         <div class="form-group">
+                            <label for="status">CV Pelamar</label><br>
+                            <a class="bg-secondary  px-2 rounded-pill" href="{{ asset('storage/cvs/'.$application->cv) }}" target="_blank">Buka PDF</a>
+                        </div>
+                        <div class="form-group">
                             <label for="status">Status Lamaran</label>
                             <select name="status" id="status" class="form-control">
                                 <option value="pending"
@@ -74,6 +78,7 @@
                                 <small class="text-danger"> {{ $message }}</small>
                             @enderror
                         </div>
+                        
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Edit</button>
