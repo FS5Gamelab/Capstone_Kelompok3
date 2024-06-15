@@ -76,7 +76,7 @@
                         <div class="form-group mb-3">
                             <label for="resume"><i class="bi bi-file-earmark-text me-2"></i>Resume</label>
                             <input type="file" class="form-control" id="resume" name="resume" accept=".pdf">
-                            @if ($profile->resume)
+                            @if ($profile->resume ?? false)
                                 <p>Current Resume: <a href="{{ asset('storage/' . $profile->resume) }}" target="_blank">{{ $profile->resume }}</a></p>
                             @endif
                             @error('resume')
