@@ -33,8 +33,10 @@ class JobController extends Controller
     }
 
     public function show($id)
-    {
+    {   
+        
         $jobs = Jobs::findOrFail($id);
+        $applications = $jobs->applications;
         return view('seeker.jobs.show', compact('jobs'));
     }
 }

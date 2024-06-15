@@ -34,7 +34,7 @@ class Jobs extends Model
     public function applications()
     {
 
-        return $this->hasMany(Applications::class);
+        return $this->hasMany(Applications::class, 'job_id');
     }
 
     public function category()

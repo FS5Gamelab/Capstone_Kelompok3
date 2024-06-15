@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('phone');
             $table->string('skills');
             $table->string('resume');
-            $table->string('profile');
             $table->foreign('user_id')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamps();

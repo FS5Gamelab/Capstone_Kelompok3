@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
@@ -9,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoriesController extends Controller
 {
+    private function getPerusahaan()
+    {
+        return User::findOrFail(Auth::user()->id)->companies->companyName;
+    }
 
     public function index()
     {
@@ -16,58 +19,58 @@ class CategoriesController extends Controller
         return view('company.partials.categories.index', [
             'categories' => $categories,
             'title' => 'Kategori',
-            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
+            'perusahaan' => $this->getPerusahaan(),
         ]);
     }
 
     public function create()
     {
-        return view('company.partials.categories.create', ['title' => 'Kategori']);
+        return view('company.partials.categories.create', [
+            'title' => 'Kategori',
+            'perusahaan' => $this->getPerusahaan(),
+        ]);
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama_kategori'     => 'required',
-            'deskripsi_kategori'   => 'required',
+            'nama_kategori' => 'required',
+            'deskripsi_kategori' => 'required',
         ]);
         Categories::create([
-            'categoryName'     => $request->nama_kategori,
-            'categoryDescription'   => $request->deskripsi_kategori,
-
+            'categoryName' => $request->nama_kategori,
+            'categoryDescription' => $request->deskripsi_kategori,
         ]);
         return redirect('/company-category')->with(['success' => 'Kategori Berhasil DItambahkan!']);
     }
-
 
     public function edit($id)
     {
         return view('company.partials.categories.edit', [
             'category' => Categories::findOrFail($id),
             'title' => 'Kategori',
-            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
+            'perusahaan' => $this->getPerusahaan(),
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nama_kategori'     => 'required',
-            'deskripsi_kategori'   => 'required',
+            'nama_kategori' => 'required',
+            'deskripsi_kategori' => 'required',
         ]);
         $category = Categories::findOrFail($id);
         $category->update([
-            'categoryName'     => $request->nama_kategori,
-            'categoryDescription'   => $request->deskripsi_kategori,
-
+            'categoryName' => $request->nama_kategori,
+            'categoryDescription' => $request->deskripsi_kategori,
         ]);
         return redirect('/company-category')->with(['success' => 'Kategori Berhasil Diupdate!']);
     }
 
     public function destroy($id)
     {
-        $job = Categories::findOrFail($id);
-        $job->delete();
+        $category = Categories::findOrFail($id);
+        $category->delete();
         return redirect('/company-category')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 
@@ -77,7 +80,7 @@ class CategoriesController extends Controller
         return view('company.partials.categories.trash', [
             'categories' => $categories,
             'title' => 'Kategori',
-            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
+            'perusahaan' => $this->getPerusahaan(),
         ]);
     }
 

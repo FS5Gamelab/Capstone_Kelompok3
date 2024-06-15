@@ -17,7 +17,17 @@
             <tr>
                 <td>{{ $application->job->jobTitle }}</td>
                 <td>{{ $application->applicationDate }}</td>
-                <td>{{ $application->status }}</td>
+                <td>
+                    @if ($application->status == 'pending')
+                        <span class="badge badge-warning">{{ $application->status }}</span>
+                    @elseif ($application->status == 'accepted')
+                        <span class="badge badge-success">{{ $application->status }}</span>
+                    @elseif ($application->status == 'rejected')
+                        <span class="badge badge-danger">{{ $application->status }}</span>
+                    @else
+                        <span class="badge badge-secondary">{{ $application->status }}</span>
+                    @endif
+                </td>
             </tr>
             @endforeach
         </tbody>
