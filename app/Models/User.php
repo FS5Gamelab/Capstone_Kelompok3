@@ -43,6 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+   
     public function companies()
     {
         return $this->hasOne(Companies::class);
@@ -50,6 +51,6 @@ class User extends Authenticatable
 
     public function seeker()
     {
-    return $this->hasOne(Seekers::class, 'user_id');
+        return $this->hasOne(Seekers::class);
     }
 }

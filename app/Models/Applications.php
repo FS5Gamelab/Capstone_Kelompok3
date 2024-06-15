@@ -25,6 +25,6 @@ class Applications extends Model
 
     public function seeker()
     {
-        return $this->belongsTo(Seekers::class);
+        return $this->belongsTo(Seekers::class, 'seeker_id');
     }
 }

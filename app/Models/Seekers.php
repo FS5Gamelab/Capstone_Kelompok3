@@ -12,7 +12,7 @@ class Seekers extends Model
 
     public function applications()
     {
-        return $this->hasMany(Applications::class);
+        return $this->hasMany(Applications::class, 'seeker_id');
     }
 
     protected $table = 'seekers';

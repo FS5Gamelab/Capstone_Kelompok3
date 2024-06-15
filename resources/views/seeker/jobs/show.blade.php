@@ -7,7 +7,11 @@
 
                 <div class="card my-4">
                     <div class="card-body">
+<<<<<<< HEAD
                     <h1 class="card-title">{{ $jobs->jobTitle }}</h1>
+=======
+                        <h1 class="card-title">{{ $jobs->jobTitle }}</h1>
+>>>>>>> 9583c031d6401a3c18559d6f97942a78afddb1a6
                         <p class="card-text">{{ $jobs->jobDescription }}</p>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Requirements:</strong> {{ $jobs->jobRequire }}</li>

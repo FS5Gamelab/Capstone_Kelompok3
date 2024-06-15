@@ -33,10 +33,16 @@ class JobController extends Controller
     }
 
     public function show($id)
+<<<<<<< HEAD
     {   
         
         $jobs = Jobs::findOrFail($id);
         $applications = $jobs->applications;
+=======
+    {
+        $jobs = Jobs::with('applications.seeker')->findOrFail($id);
+
+>>>>>>> 9583c031d6401a3c18559d6f97942a78afddb1a6
         return view('seeker.jobs.show', compact('jobs'));
     }
 }

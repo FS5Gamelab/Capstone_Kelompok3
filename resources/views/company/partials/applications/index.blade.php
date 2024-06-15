@@ -1,4 +1,5 @@
 @extends('company.main')
+
 @section('konten')
     @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible">
@@ -28,9 +29,9 @@
                                 <th class="text-center">Nama Pelamar</th>
                                 <th class="text-center">No.Hp Pelamar</th>
                                 <th class="text-center">Skills</th>
-                                <th class="text-center">Resume</th>
+                                <th width="12%" class="text-center">CV</th>
                                 <th class="text-center">Alamat</th>
-                                <th class="text-center">Status</th>
+                                <th width="12%" class="text-center">Status</th>
                                 <th width="12%" class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -46,7 +47,11 @@
                                     <td class="text-center">
                                         {{ $a->seeker->skills }}
                                     </td>
-                                    <td class="text-center"> {{ $a->seeker->resume }} </td>
+                                    <td class="text-center">
+                                        <a class="bg-secondary  px-2 rounded-pill"
+                                            href="{{ asset('storage/cvs/dMGOceyy66r9Q6lcsD7TnaN7E3MFWksUpRvaspPj.pdf') }}"
+                                            target="_blank">Buka PDF</a>
+                                    </td>
                                     <td> {{ $a->seeker->address }} </td>
                                     <td>
                                         @if ($a->status == 'pending')
@@ -70,8 +75,6 @@
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                             action="{{ route('applications.destroy', $a->id) }}" method="POST">
-                                            {{-- <a href="{{ route('applications.show', $a->id) }}"
-                                                class="btn btn-sm btn-dark"><i class="fa fa-eye" aria-hidden="true"></i></a> --}}
                                             <a href="{{ route('applications.edit', $a->id) }}"
                                                 class="btn btn-sm btn-primary"><i class="fa fa-pencil-alt"
                                                     aria-hidden="true"></i></a>
@@ -86,7 +89,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>

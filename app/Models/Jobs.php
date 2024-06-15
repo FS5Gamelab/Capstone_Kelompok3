@@ -28,12 +28,15 @@ class Jobs extends Model
 
     public function company()
     {
-        return $this->belongsTo(Companies::class);
+        return $this->belongsTo(Companies::class,'company_id');
     }
 
     public function applications()
     {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9583c031d6401a3c18559d6f97942a78afddb1a6
         return $this->hasMany(Applications::class, 'job_id');
     }
 

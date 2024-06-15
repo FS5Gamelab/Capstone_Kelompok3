@@ -27,7 +27,11 @@ class CategoriesController extends Controller
     {
         return view('company.partials.categories.create', [
             'title' => 'Kategori',
+<<<<<<< HEAD
             'perusahaan' => $this->getPerusahaan(),
+=======
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
+>>>>>>> 9583c031d6401a3c18559d6f97942a78afddb1a6
         ]);
     }
 

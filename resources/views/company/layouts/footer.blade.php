@@ -68,7 +68,7 @@
           const navLinks = document.querySelectorAll('.nav-link');
           navLinks.forEach(link => {
               const linkPath = new URL(link.href, window.location.origin).pathname;
-               if (currentPath === linkPath || currentPath.startsWith(linkPath + '/') || currentPath.includes(
+              if (currentPath === linkPath || currentPath.startsWith(linkPath + '/') || currentPath.includes(
                       linkPath)) {
                   link.classList.add('active');
               } else {

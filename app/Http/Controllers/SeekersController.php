@@ -43,7 +43,13 @@ class SeekersController extends Controller
     {
         //
     }
+    public function downloadCV($id)
+    {
+        $seeker = Seekers::findOrFail($id);
+        $filePath = $seeker->resume; // Adjust as per your storage configuration
 
+        return Storage::disk('public')->download($filePath);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -55,24 +61,33 @@ class SeekersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showProfile($seekerId)
+    public function show()
     {
+<<<<<<< HEAD
         $profile = Seekers::where('user_id', $seekerId)->first();
         $user = Auth::user();
         return view('seeker.profile', compact('profile', 'user', 'seekerId'));
+=======
+        $seekers = Seekers::where('user_id', auth()->id())->firstOrFail();
+
+        return view('seeker.profile.show', compact('seeker'));
+>>>>>>> 9583c031d6401a3c18559d6f97942a78afddb1a6
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Seekers $seekers)
+    public function edit()
     {
-        //
+        $seekers = Seekers::where('user_id', auth()->id())->firstOrFail();
+
+        return view('seeker.profile.edit', compact('seeker'));
     }
 
     /**
      * Update the specified resource in storage.
      */
+<<<<<<< HEAD
     
      public function updateProfile(Request $request, $seekerId)
      {
@@ -123,6 +138,45 @@ class SeekersController extends Controller
 
     return redirect()->back()->with('error', 'Resume not found or not uploaded.');
 }
+=======
+    public function update(Request $request)
+    {
+        // Validasi data yang dikirim
+        $request->validate([
+            'fullName' => 'required|string|max:255',
+            'address' => 'required|string',
+            'phone' => 'required|string|max:20',
+            'skills' => 'required|string',
+            'resume' => 'nullable|mimes:pdf,doc,docx|max:2048', // optional, max 2MB
+            'profile' => 'nullable|image|max:2048', // optional, max 2MB
+        ]);
+
+        // Simpan data ke dalam database
+        $seekers = Seekers::where('user_id', auth()->id())->firstOrFail(); // Mengasumsikan user_id ada dalam model Seeker
+
+        $seekers->fullName = $request->fullName;
+        $seekers->address = $request->address;
+        $seekers->phone = $request->phone;
+        $seekers->skills = $request->skills;
+
+        // Proses upload resume jika ada
+        if ($request->hasFile('resume')) {
+            $resumePath = $request->file('resume')->store('resumes');
+            $seekers->resume = $resumePath;
+        }
+
+        // Proses upload foto profil jika ada
+        if ($request->hasFile('profile')) {
+            $profilePath = $request->file('profile')->store('profiles');
+            $seekers->profile = $profilePath;
+        }
+
+        $seekers->save();
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('seeker.profile.show')->with('success', 'Profile updated successfully');
+    }
+>>>>>>> 9583c031d6401a3c18559d6f97942a78afddb1a6
     /**
      * Remove the specified resource from storage.
      */

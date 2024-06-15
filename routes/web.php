@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AppliedJobsController;
 use App\Http\Controllers\ApplicationsController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\DashboardController;
@@ -62,13 +63,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', 'ProfileController@show')->name('profile.show');
     Route::get('/seeker/jobs', [JobController::class, 'index'])->name('seeker.jobs.index');
     Route::get('/seeker/jobs/{id}', [JobController::class, 'show'])->name('seeker.jobs.show');
-    Route::post('/seeker/applications', [ApplicationsController::class, 'store'])->name('seeker.applications.store');
+    Route::post('/seeker/applications', [ApplicationController::class, 'store'])->name('seeker.applications.store');
     // route untuk user profile
+<<<<<<< HEAD
     Route::get('/seeker/profile/{seekerId}', [SeekersController::class, 'showProfile'])->name('seeker.profile.show');
     Route::put('/seeker/profile/{seekerId}', [SeekersController::class, 'updateProfile'])->name('seeker.profile.update');
     Route::put('/profile/update/{seekerId}', [SeekersController::class, 'updateProfile'])->name('profile.updatep');
     Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
     Route::get('/resume/{seekerId}', [SeekersController::class, 'viewResume'])->name('resume.view');
+=======
+    Route::get('/profile', [SeekersController::class, 'show'])->name('seeker.profile.show');
+    Route::get('/profile/edit', [SeekersController::class, 'edit'])->name('seeker.profile.edit');
+    Route::put('/profile/update', [SeekersController::class, 'update'])->name('seeker.profile.update');
+    Route::get('seeker/applied-jobs', [ApplicationController::class, 'appliedJobs'])->name('seeker.applied.jobs');
+    Route::post('applications', [ApplicationController::class, 'store'])->name('applications.store');
+    Route::post('/jobs/apply', [ApplicationController::class, 'store'])->name('jobs.apply');
+    Route::get('/seeker/applied-jobs', [ApplicationController::class, 'appliedJobs'])->name('seeker.applied_jobs');
+    Route::get('/seeker/download-cv/{id}', [SeekersController::class, 'downloadCV'])->name('download.cv');
+>>>>>>> 9583c031d6401a3c18559d6f97942a78afddb1a6
 });
 
 require __DIR__.'/auth.php';

@@ -226,7 +226,7 @@
                                         {{ ucfirst($job->jobStatus) }}
                                     </span>
                                 </p>
-                                <a href="#" class="btn btn-primary">Lihat Detail</a>
+                                <a href="{{ route('seeker.jobs.index') }}" class="btn btn-primary">Lihat Detail</a>
                             </div>
                         </div>
                     </div>
