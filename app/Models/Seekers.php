@@ -24,7 +24,6 @@ class Seekers extends Model
         'phone',
         'skills',
         'resume',
-        'profile',
     ];
 
     public function user()

@@ -78,7 +78,7 @@
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                             action="{{ route('jobs.destroy', $job->id) }}" method="POST">
-                                            <a href="{{ route('jobs.show', $job->id) }}" class="btn btn-sm btn-dark"><i
+                                            <a href="/company-jobs-show/{{  $job->id }}" class="btn btn-sm btn-dark"><i
                                                     class="fa fa-eye" aria-hidden="true"></i></a>
                                             <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-sm btn-primary"><i
                                                     class="fa fa-pencil-alt" aria-hidden="true"></i></a>

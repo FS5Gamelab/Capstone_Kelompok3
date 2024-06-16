@@ -7,7 +7,9 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Events\CompanyCreated;
+use App\Events\ProfileUpdated;
 use App\Listeners\CreateCompanyEntry;
+use App\Listeners\UpdateProfileListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,14 +25,16 @@ class EventServiceProvider extends ServiceProvider
         CompanyCreated::class => [
             CreateCompanyEntry::class,
         ],
+        ProfileUpdated::class => [
+            UpdateProfileListener::class,
+        ],
     ];
-
     /**
      * Register any events for your application.
      */
-    public function boot(): void
+    public function boot()
     {
-        //
+        parent::boot();
     }
 
     /**

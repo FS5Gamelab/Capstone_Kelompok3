@@ -73,6 +73,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/jobs/apply', [ApplicationController::class, 'store'])->name('jobs.apply');
     Route::get('/seeker/applied-jobs', [ApplicationController::class, 'appliedJobs'])->name('seeker.applied_jobs');
     Route::get('/seeker/download-cv/{id}', [SeekersController::class, 'downloadCV'])->name('download.cv');
+    Route::put('/profile/update/{seekerId}', [SeekersController::class, 'updateProfile'])->name('profile.updatep');
+    Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
+    Route::get('/resume/{seekerId}', [SeekersController::class, 'viewResume'])->name('resume.view');
+    Route::get('/profile', [SeekersController::class, 'show'])->name('seeker.profile.show');
+    Route::get('/profile/{seekerId}', [SeekersController::class, 'show'])->name('seeker.profile.show');
+
 });
 
 require __DIR__.'/auth.php';

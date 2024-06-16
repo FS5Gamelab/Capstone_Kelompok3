@@ -48,10 +48,8 @@
                                         {{ $a->seeker->skills }}
                                     </td>
                                     <td class="text-center">
-                                        <a class="bg-secondary  px-2 rounded-pill"
-                                            href="{{ asset('storage/cvs/dMGOceyy66r9Q6lcsD7TnaN7E3MFWksUpRvaspPj.pdf') }}"
-                                            target="_blank">Buka PDF</a>
-                                    </td>
+                    <a class="bg-secondary px-2 rounded-pill" href="{{ Storage::url($a->cv) }}" target="_blank">Buka PDF</a>
+                </td>
                                     <td> {{ $a->seeker->address }} </td>
                                     <td>
                                         @if ($a->status == 'pending')
