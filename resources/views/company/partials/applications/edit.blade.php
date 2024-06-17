@@ -51,12 +51,11 @@
                         <div class="form-group">
                             <label for="seeker_resume">Resume Pelamar </label>
 
-                            <textarea rows="9" class="form-control @error('job_description') is-invalid @enderror" name="seeker_resume" id="seeker_resume"
-                                disabled>{{ old('seeker_resume', $application->seeker->resume) }}</textarea>
+                            <a class="bg-secondary  px-2 rounded-pill" href="{{ asset('storage/'.$application->seeker->resume) }}" target="_blank">Buka Resume</a
                         </div>
                         <div class="form-group">
                             <label for="status">CV Pelamar</label><br>
-                            <a class="bg-secondary  px-2 rounded-pill" href="{{ asset('storage/cvs/'.$application->cv) }}" target="_blank">Buka PDF</a>
+                            <a class="bg-secondary  px-2 rounded-pill" href="{{ asset('storage/'.$application->cv) }}" target="_blank">Buka PDF</a>
                         </div>
                         <div class="form-group">
                             <label for="status">Status Lamaran</label>
