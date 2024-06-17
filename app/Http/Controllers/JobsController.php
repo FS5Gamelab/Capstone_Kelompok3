@@ -72,9 +72,10 @@ class JobsController extends Controller
         return redirect('/company/jobs')->with(['success' => 'Lowongan Baru Dibuka !!']);
     }
 
-    public function show(Jobs $job)
+    public function show($id)
     {
         $company_id = User::findOrFail(Auth::user()->id)->companies->id;
+        $job =Jobs::findOrFail($id);
         $jobs = Jobs::where('company_id', $company_id)->get();
         $applications = Applications::whereHas('job', function ($query) use ($company_id, $job) {
             $query->where('company_id', $company_id)->where('job_id', $job->id);
@@ -136,12 +137,11 @@ class JobsController extends Controller
 
     public function trash()
     {
-
         $jobs = Jobs::onlyTrashed()->get();
         return view('company.partials.jobs.trash', [
             'jobs' => $jobs,
-             'title' => 'Jobs',
-             'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
+            'title' => 'Jobs',
+            'perusahaan' => User::findOrFail(Auth::user()->id)->companies->companyName
         ]);
     }
 

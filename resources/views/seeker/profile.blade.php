@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <!-- Account Information Card -->
         <div class="col-md-6">
             <div class="card card-primary">
                 <div class="card-header">
@@ -46,7 +47,7 @@
                 </form>
             </div>
         </div>
-
+        <!-- Profile Information Card -->
         <div class="col-md-6">
             <div class="card card-primary">
                 <div class="card-header">

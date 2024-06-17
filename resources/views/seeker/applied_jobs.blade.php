@@ -21,15 +21,13 @@
                 <td>{{ $application->applicationDate }}</td>
                 <td>
                     @if ($application->status == 'pending')
-                        <span class="badge bg-warning text-dark">{{ $application->status }}</span>
+                        <span class="badge badge-warning">{{ ucfirst($application->status) }}</span>
                     @elseif ($application->status == 'accepted')
-                        <span class="badge bg-success">{{ $application->status }}</span>
+                        <span class="badge badge-success">{{ ucfirst($application->status) }}</span>
                     @elseif ($application->status == 'rejected')
-                        <span class="badge bg-danger">{{ $application->status }}</span>
-                    @elseif ($application->status == 'in_review')
-                        <span class="badge bg-info">{{ $application->status }}</span>
+                        <span class="badge badge-danger">{{ ucfirst($application->status) }}</span>
                     @else
-                        <span class="badge bg-secondary">{{ $application->status }}</span>
+                        <span class="badge badge-secondary">{{ ucfirst($application->status) }}</span>
                     @endif
                 </td>
             </tr>

@@ -92,6 +92,9 @@
         }
     </style>
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    @php
+        $seekerId = Auth::id();
+    @endphp
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -136,7 +139,7 @@
                             <i class="fas fa-user"></i> {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('seeker.profile.show', ['seekerId' => Auth::user()->id]) }}">Profil</a></li>
+                            <li><a class="dropdown-item" href="{{ route('seeker.profile.show', ['seekerId' => $seekerId]) }}">Profil</a></li>
                             <li><a class="dropdown-item" href="{{ route('seeker.applied_jobs') }}">Jobs Dilamar</a></li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('logout') }}"

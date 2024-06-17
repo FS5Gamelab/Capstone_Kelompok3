@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ProfileUpdated;
 use App\Models\Applications;
-use App\Models\Jobs;
 use App\Models\Seekers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,120 +10,60 @@ use Illuminate\Support\Facades\Storage;
 
 class SeekersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login');
-    }
-    public function appliedJobs()
-    {
-        $seekerId = Auth::id();
-        $applications = Applications::where('seeker_id', $seekerId)->with('job')->get();
-        return view('seeker.applied_jobs', compact('applications'));
-    }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-    
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show($seekerId)
     {
-        
         $profile = Seekers::where('user_id', $seekerId)->first();
         $user = Auth::user();
         return view('seeker.profile', compact('profile', 'user', 'seekerId'));
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
+    public function appliedJobs()
+    {
+        $seekerId = Seekers::where('user_id', Auth::id())->first()->id;
+        $applications = Applications::where('seeker_id', $seekerId)->with('job')->get();
+        return view('seeker.applied_jobs', compact('applications'));
+    }
+
     public function edit()
     {
-        $seekers = Seekers::where('user_id', auth()->id())->firstOrFail();
-
+        $seeker = Seekers::where('user_id', auth()->id())->firstOrFail();
         return view('seeker.profile.edit', compact('seeker'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function updateProfile(Request $request, $seekerId)
-{
-    $request->validate([
-        'fullName' => 'nullable|string|max:255',
-        'address' => 'nullable|string|max:500',
-        'phone' => 'nullable|string|max:20',
-        'skills' => 'nullable|string|max:255',
-        'resume' => 'nullable|file|mimes:pdf|max:10240', // max size 10MB
-    ]);
+    {
+        $request->validate([
+            'fullName' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:500',
+            'phone' => 'nullable|string|max:20',
+            'skills' => 'nullable|string|max:255',
+            'resume' => 'nullable|file|mimes:pdf|max:10240',
+        ]);
 
-    $seeker = Seekers::firstOrNew(['user_id' => $seekerId]);
-    $seeker->fill($request->except('resume'));
+        $seeker = Seekers::firstOrNew(['user_id' => $seekerId]);
+        $seeker->fill($request->except('resume'));
 
-    if ($request->hasFile('resume')) {
-        // Delete the old resume if it exists
-        if ($seeker->resume) {
-            Storage::delete($seeker->resume);
+        if ($request->hasFile('resume')) {
+            if ($seeker->resume) {
+                Storage::delete($seeker->resume);
+            }
+            $path = $request->file('resume')->store('resumes', 'public');
+            $seeker->resume = $path;
         }
 
-        // Store the new resume
-        $path = $request->file('resume')->store('resumes', 'public');
-        $seeker->resume = $path;
+        $seeker->save();
+
+        return redirect()->back()->with('success', 'Profile updated successfully');
     }
 
-    $seeker->save();
-
-    event(new ProfileUpdated($seeker));
-
-    return redirect()->back()->with('success', 'Profile updated successfully');
-}
-    /**
-     * Remove the specified resource from storage.
-     */
-
-     public function viewResume($seekerId)
-     {
-         $seeker = Seekers::where('user_id', $seekerId)->firstOrFail();
-     
-         if ($seeker->resume) {
-             // Get the file path
-             $filePath = 'public/' . $seeker->resume;
-     
-             // Check if the file exists
-             if (Storage::exists($filePath)) {
-                 // Return the file for viewing
-                 return response()->file(storage_path('app/' . $filePath));
-             }
+    public function viewResume($seekerId)
+    {
+        $seeker = Seekers::where('user_id', $seekerId)->firstOrFail();
+        if ($seeker->resume) {
+            $filePath = 'public/' . $seeker->resume;
+            if (Storage::exists($filePath)) {
+                return response()->file(storage_path('app/' . $filePath));
             }
         }
-    public function destroy(Seekers $seekers)
-    {
-        //
-    //
+        return abort(404, 'Resume not found');
     }
 }

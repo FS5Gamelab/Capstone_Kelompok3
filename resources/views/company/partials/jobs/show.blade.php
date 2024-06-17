@@ -129,7 +129,7 @@
                                    
                                     <td class="text-center">{{ $application->seeker->address }}</td>
                                     <td class="text-center">
-                                        <a class="bg-secondary  px-2 rounded-pill" href="{{ asset('storage/cvs/'.$application->cv) }}" target="_blank">Buka PDF</a>
+                                        <a class="bg-secondary  px-2 rounded-pill" href="{{ Storage::url($application->cv) }}" target="_blank">Buka PDF</a>
                                     </td>
                                     <td>
                                         @if($application->status == 'pending')

@@ -47,7 +47,7 @@ class ApplicationsController extends Controller
             'status'     => $request->status,
         ]);
         $previousUrl = session('previous_url');
-        if (strpos($previousUrl, '/company/jobs/') !== false) {
+        if (strpos($previousUrl, '/company-jobs-show/') !== false) {
             return redirect($previousUrl)->with(['success' => 'Data Berhasil Diubah!']);
         } elseif (strpos($previousUrl, '/applications') !== false) {
             return redirect('/applications')->with(['success' => 'Data Berhasil Diubah!']);

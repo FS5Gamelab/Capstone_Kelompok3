@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Applications;
+use App\Models\Jobs;
 use App\Models\Seekers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,19 +12,22 @@ class ApplicationController extends Controller
 {
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'job_id' => 'required|exists:jobs,id',
-            'cv' => 'required|mimes:pdf,doc,docx|max:2048',
+            'cv' => 'required|mimes:pdf,doc,docx|max:9048',
         ]);
 
-        // Dapatkan seeker yang sedang login
         $seeker = Seekers::where('user_id', Auth::id())->firstOrFail();
+        $existingApplication = Applications::where('job_id', $request->job_id)
+                                            ->where('seeker_id', $seeker->id)
+                                            ->first();
 
-        // Simpan file CV menggunakan Storage facade
+        if ($existingApplication) {
+            return redirect()->route('seeker.applied_jobs')->with('error', 'You have already applied for this job.');
+        }
+
         $filePath = $request->file('cv')->store('cvs', 'public');
 
-        // Buat aplikasi baru
         Applications::create([
             'job_id' => $request->job_id,
             'seeker_id' => $seeker->id,
@@ -33,7 +36,28 @@ class ApplicationController extends Controller
             'cv' => $filePath,
         ]);
 
-        return redirect()->route('seeker.jobs.index')->with('success', 'Application submitted successfully.');
+        return redirect()->route('seeker.applied_jobs')->with('success', 'Application submitted successfully.');
+    }
+
+    public function showJob($id)
+    {
+        $job = Jobs::with(['applications' => function ($query) {
+            $seeker = Seekers::where('user_id', Auth::id())->first();
+            if ($seeker) {
+                $query->where('seeker_id', $seeker->id);
+            }
+        }])->findOrFail($id);
+
+        $seeker = Seekers::where('user_id', Auth::id())->first();
+        $hasApplied = false;
+
+        if ($seeker) {
+            $hasApplied = Applications::where('job_id', $id)
+                                       ->where('seeker_id', $seeker->id)
+                                       ->exists();
+        }
+
+        return view('seeker.jobs.show', compact('job', 'hasApplied'));
     }
 
     public function appliedJobs()

@@ -107,7 +107,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('seeker.jobs.index') }}">
                         <i class="fas fa-search"></i> Cari Pekerjaan
                     </a>
                 </li>
@@ -247,7 +247,7 @@
                                         {{ ucfirst($job->jobStatus) }}
                                     </span>
                                 </p>
-                                <a href="{{ route('seeker.jobs.index') }}" class="btn btn-primary">Lihat Detail</a>
+                                <a href="{{ route('seeker.jobs.show', $job->id) }}" class="btn btn-primary">Lihat Detail</a>
                             </div>
                         </div>
                     </div>
